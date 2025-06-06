@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="/logo.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Recadinho do Stitch</title>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YMT9H9RNGJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      // Configuração principal
+      gtag('config', 'G-YMT9H9RNGJ', {
+        'anonymize_ip': true,
+        'cookie_domain': 'auto',
+        'cookie_expires': 63072000,
+        'cookie_prefix': 'ga',
+        'cookie_update': true,
+        'send_page_view': true,
+        'allow_google_signals': true,
+        'allow_ad_personalization_signals': true
+      });
+
+      // Rastreamento de eventos de erro
+      window.onerror = function(msg, url, lineNo, columnNo, error) {
+        gtag('event', 'error', {
+          'event_category': 'JavaScript',
+          'event_label': msg + ' - ' + url + ':' + lineNo + ':' + columnNo,
+          'non_interaction': true
+        });
+        return false;
+      };
+    </script>
+    <!-- End Google Analytics 4 -->
+
+    <!-- Font Awesome para ícone do WhatsApp -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      
+      // Verificar se está em ambiente de desenvolvimento
+      const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      
+      try {
+        if (!isDevelopment) {
+          fbq('init', '1433643278048281', {
+            accessToken: 'EAAYcAZCB5mmABO7XJ8OHT1I1CZAmPHqe4ZB5XCnZAxNjveWxMjdWKttLRa9tumQmlWbfU3prs9GI0dsZCAd9npNcCZAk0OW1sstzkNQ1SZArrMjigaoIDroCVcZBjC55XNuMMM7GRrtop4mQWZCtosmsVQm4LtqFdKq8xiFjgXZBJHfe0rXTF3NTwlm6Vb7OXrKEpD3wZDZD'
+          });
+          fbq('track', 'PageView');
+        } else {
+          console.log('Pixel do Facebook desativado em ambiente de desenvolvimento');
+        }
+      } catch (error) {
+        console.error('Erro ao inicializar Pixel do Facebook:', error);
+      }
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1433643278048281&ev=PageView&noscript=1"
+      />
+    </noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Utmify Pixel Code -->
+    <script>
+      window.pixelId = "6818fc32fb0de746e8d6075f";
+      window.utmifyConfig = {
+        apiUrl: "https://api.utmify.com.br",
+        debug: false,
+        retryAttempts: 3,
+        retryDelay: 1000,
+        timeout: 5000,
+        useHttps: true,
+        trackEvents: true,
+        trackPageViews: true,
+        trackClicks: true,
+        trackForms: true,
+        trackScroll: true,
+        environment: "production"
+      };
+      var a = document.createElement("script");
+      a.setAttribute("async", "");
+      a.setAttribute("defer", "");
+      a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+      document.head.appendChild(a);
+    </script>
+    <!-- End Utmify Pixel Code -->
+
+    <!-- Utmify UTM Script -->
+    <script
+      src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+      data-utmify-prevent-xcod-sck
+      data-utmify-prevent-subids
+      data-utmify-api-url="https://api.utmify.com.br"
+      data-utmify-environment="production"
+      async
+      defer
+    ></script>
+  </head>
+  <body>
+    <noscript>
+      <strong>Desculpe, mas este site não funciona corretamente sem JavaScript habilitado. Por favor, habilite-o para continuar.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

@@ -1,0 +1,262 @@
+@import './styles/personalization.css';
+@import 'swiper/css';
+@import 'swiper/css/pagination';
+@import 'swiper/css/navigation';
+
+@font-face {
+  font-family: 'Segoe Print';
+  src: url('./fonts/SegoePrint.woff2') format('woff2'),
+       url('./fonts/SegoePrint.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fertigo Pro';
+  src: url('./fonts/Fertigo-Pro.woff2') format('woff2'),
+       url('./fonts/Fertigo-Pro.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  /* Colors */
+  --primary-color: #006eff;
+  --secondary-color: #28cdff;
+  --accent-pink: #FF4D8D;
+  --accent-yellow: #d8ff28;
+  --accent-blue: #0099ff;
+  --text-color: #333333;
+  --white: #FFFFFF;
+  --gray-50: #F8FAFC;
+  --gray-100: #F1F5F9;
+  --gray-400: #94A3B8;
+  --gray-500: #64748B;
+  --black: #000000;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(45deg, var(--primary-color), var(--secondary-color) ,var(--accent-blue));
+  --gradient-secondary: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--accent-pink), #FF8FB8);
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+  --shadow-primary: 0 4px 12px rgba(0, 89, 255, 0.2);
+  --shadow-accent: 0 4px 12px rgba(255, 77, 141, 0.2);
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+  --swiper-theme-color: #007aff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe Print', Arial, sans-serif;
+}
+
+body {
+  background: var(--white);
+  color: var(--text-color);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'NomeDaFonte', sans-serif;
+  text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: 32px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  color: var(--text-color);
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-color);
+  opacity: 0.9;
+}
+
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.text-gradient-accent {
+  background: var(--gradient-secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* Base button style */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  border: none;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: none;
+  text-transform: none;
+  line-height: 1.4;
+  letter-spacing: 0.2px;
+  font-family: 'Product Sans', sans-serif;
+}
+
+/* Secondary button style */
+.btn-secondary {
+  background: var(--white);
+  color: var(--accent-pink);
+  border: 2px solid var(--accent-blue);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 77, 141, 0.05);
+  opacity: 0.9;
+}
+
+/* CTA button style - Nosso padrão principal */
+.btn-cta {
+  background: var(--accent-blue);
+  color: var(--white);
+  padding: 16px 32px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-cta:hover,
+.btn-cta:active {
+  background: var(--primary-color-dark);
+  transform: translateY(-1px);
+}
+
+/* Variação para botões CTA pequenos */
+.btn-cta-sm {
+  font-size: 14px;
+  padding: 12px 24px;
+}
+
+/* Variação para botões CTA largos */
+.btn-cta-full {
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* Hero specific CTA */
+.hero__cta-btn {
+  position: absolute !important;
+  top: 76% !important;
+  left: 29% !important;
+}
+
+.hero__cta-btn:hover {
+  transform: none !important;
+  opacity: 0.9 !important;
+}
+
+/* Material Icons */
+.material-icons {
+  font-size: 24px;
+  line-height: 1;
+  color: var(--accent-pink);
+}
+
+/* Card Styles */
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--accent-yellow);
+  transition: none;
+}
+
+.card:hover {
+  opacity: 0.9;
+}
+
+/* Input Styles */
+.input {
+  width: 100%;
+  padding: 14px 20px;
+  border: 2px solid var(--accent-pink);
+  border-radius: var(--radius-full);
+  font-size: 16px;
+  color: var(--text-color);
+  transition: none;
+  background: var(--white);
+  font-family: 'Product Sans', sans-serif;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 4px rgba(0, 194, 255, 0.1);
+}
+
+/* Title Custom */
+.title-custom {
+  color: var(--text-color);
+  font-family: "Fertigo Pro", Times, "Times New Roman", serif;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto 40px;
+  line-height: 1.15;
+  position: relative;
+  z-index: 1;
+  font-size: 38px !important;
+}
+
+/* Personalization Page */
+.personalizar {
+  font-family: 'Product Sans', sans-serif;
+}
+
+.personalizar *:not(.material-icons) {
+  font-family: 'Product Sans', sans-serif;
+}
+
+/* Price Tag Styles */
+.price-tag {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent-pink);
+  background: linear-gradient(135deg, var(--accent-pink), var(--primary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Ajuste para placeholders */
+.personalizar input::placeholder,
+.personalizar textarea::placeholder {
+  font-family: 'Product Sans', sans-serif;
+} 
