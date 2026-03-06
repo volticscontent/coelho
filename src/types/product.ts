@@ -1,5 +1,3 @@
-import surpriseImage from '../assets/imgs/SURPRESA.png'
-
 export interface Product {
   id: string
   name: string
@@ -51,8 +49,8 @@ export const COELHO_VIDEO: BunnyVideo = {
   name: 'Vídeo do Coelho da Páscoa',
   description: 'O Coelho da pascoa vai esconder os ovos na pascoa! Será que seu filho vai conseguir encontrar?',
   basePrice: 47.90,
-  image: surpriseImage,
-  thumbnail: surpriseImage,
+  image: '/video.png',
+  thumbnail: '/video.png',
   maxChildren: 3,
   options: [
     {

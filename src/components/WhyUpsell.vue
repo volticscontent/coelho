@@ -606,6 +606,7 @@ export default defineComponent({
 .character p {
   font-size: 12px;
   margin: 0;
+  color: white;
 }
 
 .instant-badge {
@@ -615,7 +616,7 @@ export default defineComponent({
   gap: 8px;
   margin-top: 16px;
   padding: 12px;
-  background: #00b67a;
+  background: #5ed371;
   color: white;
   border-radius: var(--radius-sm);
   font-weight: bold;

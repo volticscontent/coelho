@@ -84,9 +84,10 @@ export default defineComponent({
   font-size: 24px;
   font-weight: 700;
   color: white;
-  background-color: var(--primary-color);
+  background-color: rgb(37, 211, 173);
   border-radius: 12px;
   font-family: 'Product Sans', sans-serif;
+  margin-inline: 32px;
 }
 
 @media (max-width: 768px) {
