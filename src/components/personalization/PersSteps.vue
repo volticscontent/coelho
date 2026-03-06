@@ -136,7 +136,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch, nextTick, markRaw, onMounted } from 'vue'
+import { defineComponent, computed, watch, nextTick, markRaw, onMounted, toRaw } from 'vue'
 import type { QuizStep, QuizData } from '@/types/quiz'
 import { useQuiz } from '@/composables/useQuiz'
 import { trackEvent } from '@/utils/analytics'
@@ -476,7 +476,9 @@ export default defineComponent({
                   hasPhoto: !!child.photo
                 })
                 if (child.photo) {
-                  formData.append('photos', child.photo)
+                  const rawPhoto = toRaw(child.photo)
+                  console.log('[Checkout] Anexando foto para', child.name, 'Size:', rawPhoto?.size)
+                  formData.append('photos', rawPhoto)
                 }
               }
             }
