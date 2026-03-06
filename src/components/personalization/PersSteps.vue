@@ -472,7 +472,8 @@ export default defineComponent({
               for (const child of quizData.value.children) {
                 childrenDataToSave.push({
                   name: child.name,
-                  age: child.age
+                  age: child.age,
+                  hasPhoto: !!child.photo
                 })
                 if (child.photo) {
                   formData.append('photos', child.photo)
