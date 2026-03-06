@@ -46,7 +46,7 @@
 
 .progress-steps {
   display: flex;
-  justify-content:center;
+  justify-content: center;
   margin-top: 16px;
   position: relative;
   width: 100%;
@@ -121,8 +121,7 @@
 .quiz-content {
   background: var(--white);
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  padding: 12px;
+  padding: 10px 0px 10px 0px;
 }
 
 /* Progress Bar */
@@ -136,6 +135,7 @@
   background: var(--gray-50);
   border-radius: 12px;
   padding: 24px;
+  margin-inline: 22px;
 }
 
 .price-details {
@@ -378,7 +378,7 @@
   }
 
   .card-description {
-    font-size: 16px!important;
+    font-size: 16px !important;
   }
 
   .card-price {
@@ -392,12 +392,12 @@
   .nav-buttons {
     padding: 0;
   }
-  
+
   .btn {
     height: 44px;
     font-size: 14px;
   }
-  
+
   .btn .material-icons {
     font-size: 18px;
   }
@@ -416,9 +416,6 @@
 }
 
 @media (max-width: 480px) {
-  .pers-steps {
-    padding: 16px 8px;
-  }
 
   .progress-container {
     padding: 0;
@@ -547,7 +544,7 @@
 }
 
 .quantity-card h4 {
-  font-size: 28px!important;
+  font-size: 28px !important;
   margin-bottom: 8px;
   color: var(--text-color);
   font-family: 'Product Sans', sans-serif;
@@ -580,7 +577,7 @@
 
 .quantity-card .price small {
   font-size: 16px;
-  color: var(--gradient-primary)!important;
+  color: var(--gradient-primary) !important;
 }
 
 /* Responsividade dos cartões de quantidade */
@@ -794,10 +791,6 @@
   .form-section-title {
     font-size: 16px;
     margin-bottom: 12px;
-  }
-
-  .form-group {
-    margin-bottom: 20px;
   }
 
   .form-input {

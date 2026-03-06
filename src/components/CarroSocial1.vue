@@ -11,7 +11,7 @@
       </div>
 
       <div class="message">
-        <p>Não perca a oportunidade de fazer seu pequeno sorrir! Aproveite a nossa promoção para deixar o filme do Stitch ainda mais mágico!</p>
+        <p>Não perca a oportunidade de fazer seu pequeno sorrir! Aproveite a nossa promoção para deixar o filme do Coelho da Páscoa ainda mais mágico!</p>
       </div>
 
       <div class="testimonials">
@@ -167,7 +167,7 @@ export default {
 }
 
 .stars .material-icons {
-  color: #FFD700;
+  color: #ffe44b;
   font-size: 25px;
 }
 

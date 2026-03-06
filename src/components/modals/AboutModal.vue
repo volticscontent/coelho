@@ -2,7 +2,7 @@
   <BaseModal @close="$emit('close')">
     <h2 class="modal-title">Nossa História</h2>
     <div class="modal-body">
-      <p>A Surpresa do Stitch nasceu com uma missão: trazer mais magia e alegria para a vida das crianças através de experiências interativas e personalizadas.</p>
+      <p>A Surpresa do Coelho da Páscoa nasceu com uma missão: trazer mais magia e alegria para a vida das crianças através de experiências interativas e personalizadas.</p>
       
       <h3>Nossa Missão</h3>
       <p>Criar videos mágicos que estimulam a imaginação, fortalecem os laços familiares e inspiram sorrisos diariamente.</p>

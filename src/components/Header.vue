@@ -7,7 +7,7 @@
     </button>
     
     <router-link to="/" class="header__logo">
-      <img src="@/assets/imgs/logo.png" alt="Logo" />
+      <img src="/logo.png" alt="Logo" />
     </router-link>
     
     <button @click="goToPersonalization" class="header__cart-btn" aria-label="Criar Vídeo">
@@ -26,7 +26,7 @@
     <!-- Menu mobile -->
     <div class="menu" :class="{ 'menu--active': isMenuOpen }">
       <div class="menu__header">
-        <img src="@/assets/imgs/logo.png" alt="Logo" class="menu__logo" />
+        <img src="/logo.png" alt="Logo" class="menu__logo" />
       </div>
       
       <nav class="menu__nav">
@@ -38,7 +38,7 @@
           </a>
           <a href="#star-product" @click.prevent="handleMenuClick('star-product')" class="menu-item">
             <span class="material-icons">star</span>
-            Vídeo do Stitch
+            Vídeo do Coelho
           </a>
           <a href="#map-sell" @click.prevent="handleMenuClick('map-sell')" class="menu-item">
             <span class="material-icons">info</span>
@@ -72,7 +72,7 @@
       </nav>
 
       <div class="menu__footer">
-        <p class="menu__copyright">© 2025 Recadinho do Stitch. Todos os direitos reservados.</p>
+        <p class="menu__copyright">© 2025 Recadinho do Coelho da Páscoa. Todos os direitos reservados.</p>
       </div>
     </div>
   </header>
@@ -248,7 +248,7 @@ export default {
   align-items: center;
   pointer-events: auto;
   transition: transform 0.2s ease;
-  border-radius: 50%;
+  border-radius: 360px;
 }
 
 .header__logo:active {

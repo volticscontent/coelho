@@ -207,14 +207,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineProps, defineEmits, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import type { QuizData, Child } from '@/types/quiz'
 
+// eslint-disable-next-line no-undef
 const props = defineProps<{
   quizData: QuizData
   hasPhotoOption: boolean
 }>()
 
+// eslint-disable-next-line no-undef
 const emit = defineEmits<{
   (e: 'update', data: QuizData): void
   (e: 'validation-error', errors: Record<string, string>): void
@@ -223,7 +225,7 @@ const emit = defineEmits<{
 const errors = ref<Record<string, string>>({})
 
 // Garantir que as crianças sejam inicializadas corretamente
-const children = computed(() => {
+const children = computed<Child[]>(() => {
   if (!props.quizData.children || props.quizData.children.length === 0) {
     // Criar crianças com nomes vazios em vez de nomes padrão
     return Array(props.quizData.quantity).fill(null).map(() => ({
@@ -231,7 +233,7 @@ const children = computed(() => {
       age: null,
       photo: null,
       photoPreview: null
-    }))
+    } as Child))
   }
   return props.quizData.children
 })

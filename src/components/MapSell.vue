@@ -11,7 +11,7 @@
           </div>
           <div class="step__content">
             <h3 class="step__title">Escolha o vídeo</h3>
-            <p class="step__text">Selecione o vídeo do Stitch e clique em "Criar vídeo"</p>
+            <p class="step__text">Selecione o vídeo do Coelho da Páscoa e clique em "Criar vídeo"</p>
             <div class="step__features">
               <span class="feature-tag">Vídeo 2025</span>
               <span class="feature-tag">Personalização rápida</span>

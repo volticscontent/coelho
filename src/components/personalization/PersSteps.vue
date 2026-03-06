@@ -137,7 +137,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, watch, nextTick, markRaw, onMounted } from 'vue'
-import type { QuizStep, QuizData, Child } from '@/types/quiz'
+import type { QuizStep, QuizData } from '@/types/quiz'
 import { useQuiz } from '@/composables/useQuiz'
 import { trackEvent } from '@/utils/analytics'
 import CheckoutService from '@/services/CheckoutService'
@@ -155,21 +155,7 @@ const components = {
   PersContact: markRaw(PersContact)
 }
 
-interface FormData {
-  contactName: string
-  contactEmail: string
-  contactPhone: string
-  message: string
-  children: Child[]
-}
 
-const formData = ref<FormData>({
-  contactName: '',
-  contactEmail: '',
-  contactPhone: '',
-  message: '',
-  children: []
-})
 
 export default defineComponent({
   name: 'PersSteps',
@@ -184,7 +170,6 @@ export default defineComponent({
     
     const {
       quizData,
-      setStep,
       updateQuizData,
       canProceed
     } = useQuiz()
@@ -264,6 +249,16 @@ export default defineComponent({
     // Observa mudanças no currentStep
     watch(currentStepIndex, (newStep) => {
       updateUrl(newStep + 1)
+
+      // Track step view for GA4
+      trackEvent({
+        event_name: 'view_step',
+        personalization_step: steps.value[newStep].label,
+        step_data: JSON.stringify({
+          step_number: newStep + 1,
+          form_data: quizData.value
+        })
+      })
       
       // Aguarda a renderização do componente
       nextTick(() => {
@@ -290,6 +285,16 @@ export default defineComponent({
       if (stepFromUrl !== currentStepIndex.value + 1) {
         currentStepIndex.value = stepFromUrl - 1
       }
+      
+      // Track initial step view for GA4
+      trackEvent({
+        event_name: 'view_step',
+        personalization_step: steps.value[currentStepIndex.value].label,
+        step_data: JSON.stringify({
+          step_number: currentStepIndex.value + 1,
+          form_data: quizData.value
+        })
+      })
     })
 
     function getOptionName(optionId: string): string {
@@ -297,7 +302,7 @@ export default defineComponent({
         case '4k':
           return 'Qualidade 4K';
         case 'foto':
-          return 'Foto com o Stitch';
+          return 'Foto com o Coelho da Páscoa';
         case 'rapido':
           return 'Entrega Rápida';
         case 'premium':
@@ -438,9 +443,63 @@ export default defineComponent({
             const checkoutData: CheckoutData = {
               quantity: quizData.value.quantity,
               options: quizData.value.options || [],
-              product: 'video_stitch',
+              product: 'video_coelho',
               totalPrice
             }
+
+            let checkoutUrl = '';
+            try {
+              checkoutUrl = CheckoutService.processCheckout(checkoutData)
+              console.log('URL de checkout gerada pelo CheckoutService:', checkoutUrl)
+            } catch (checkoutFinalError) {
+              console.error('Erro final ao gerar URL de checkout:', checkoutFinalError)
+              alert('Ocorreu um erro ao processar seu pedido. Por favor, tente novamente ou entre em contato com o suporte.')
+              throw checkoutFinalError;
+            }
+
+            console.log('Enviando dados da sessão para o backend...')
+            const formData = new FormData()
+            formData.append('product', 'video_coelho')
+            formData.append('quantity', String(quizData.value.quantity))
+            formData.append('options', JSON.stringify(quizData.value.options || []))
+            formData.append('totalPrice', String(totalPrice))
+            formData.append('customerName', quizData.value.contactName || '')
+            formData.append('customerEmail', quizData.value.contactEmail || '')
+            formData.append('customerPhone', quizData.value.contactPhone || '')
+            
+            const childrenDataToSave = []
+            if (quizData.value.children && Array.isArray(quizData.value.children)) {
+              for (const child of quizData.value.children) {
+                childrenDataToSave.push({
+                  name: child.name,
+                  age: child.age
+                })
+                if (child.photo) {
+                  formData.append('photos', child.photo)
+                }
+              }
+            }
+            formData.append('childrenData', JSON.stringify(childrenDataToSave))
+
+            const apiUrl = process.env.VUE_APP_API_URL || 'http://localhost:3000/api'
+            try {
+              const response = await fetch(`${apiUrl}/checkout/session`, {
+                method: 'POST',
+                body: formData
+              })
+              if (response.ok) {
+                const data = await response.json()
+                if (data.sessionId) {
+                  localStorage.setItem('rabbit_session_id', data.sessionId)
+                  console.log('Sessão registrada com sucesso:', data.sessionId)
+                }
+              } else {
+                console.error('Falha ao registrar sessão no backend:', await response.text())
+              }
+            } catch (err) {
+              console.error('Erro de rede ao registrar sessão (ignorando e prosseguindo checkout):', err)
+            }
+
             console.log('Dados para o checkout preparados com sucesso')
 
             // Track checkout initiation
@@ -452,7 +511,7 @@ export default defineComponent({
               step_data: JSON.stringify({
                 value: totalPrice,
                 items: [{
-                  item_name: 'Video Stitch',
+                  item_name: 'Video Coelho',
                   quantity: quizData.value.quantity,
                   price: getBasePrice(),
                   options: quizData.value.options
@@ -462,16 +521,7 @@ export default defineComponent({
             console.log('Evento de checkout enviado com sucesso')
 
             // Redireciona para o checkout
-            console.log('URL de checkout do n8n não disponível, gerando via CheckoutService...')
-            try {
-              // Sempre usar o CheckoutService para determinar a URL correta
-              const checkoutUrl = CheckoutService.processCheckout(checkoutData)
-              console.log('URL de checkout gerada pelo CheckoutService:', checkoutUrl)
-              window.location.href = checkoutUrl
-            } catch (checkoutFinalError) {
-              console.error('Erro final ao gerar URL de checkout:', checkoutFinalError)
-              alert('Ocorreu um erro ao processar seu pedido. Por favor, tente novamente ou entre em contato com o suporte.')
-            }
+            window.location.href = checkoutUrl
           } catch (processError) {
             console.error('Erro detalhado no processo de checkout:', processError)
             if (processError instanceof Error) {
@@ -515,7 +565,7 @@ export default defineComponent({
             const emergencyCheckoutData: CheckoutData = {
               quantity: quizData.value.quantity || 1,
               options: quizData.value.options || [],
-              product: 'video_stitch',
+              product: 'video_coelho',
               totalPrice: calculateTotal()
             }
             const checkoutUrl = CheckoutService.processCheckout(emergencyCheckoutData)
@@ -593,17 +643,7 @@ export default defineComponent({
       return labels[stepId] || 'Passo'
     }
 
-    // Função auxiliar para converter dataURI para Blob
-    function dataURItoBlob(dataURI: string) {
-      const byteString = atob(dataURI.split(',')[1]);
-      const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-      const ab = new ArrayBuffer(byteString.length);
-      const ia = new Uint8Array(ab);
-      for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-      }
-      return new Blob([ab], { type: mimeString });
-    }
+
 
     // Função para obter o preço base
     const getBasePrice = () => {
@@ -635,50 +675,7 @@ export default defineComponent({
       }
     }
 
-    const calculateTotalPrice = () => {
-      let total = 0
-      
-      // Preço base por quantidade
-      switch (quizData.value.quantity) {
-        case 1:
-          total = 97
-          break
-        case 2:
-          total = 147
-          break
-        case 3:
-          total = 197
-          break
-      }
 
-      // Adiciona preços das opções
-      if (quizData.value.options.includes('4k')) {
-        total += 20
-      }
-      if (quizData.value.options.includes('foto')) {
-        total += 20
-      }
-      if (quizData.value.options.includes('rapido')) {
-        total += 20
-      }
-
-      // Se for premium, substitui o preço total
-      if (quizData.value.options.includes('premium')) {
-        switch (quizData.value.quantity) {
-          case 1:
-            total = 147
-            break
-          case 2:
-            total = 197
-            break
-          case 3:
-            total = 247
-            break
-        }
-      }
-
-      return total
-    }
 
     const progressWidth = computed(() => {
       const totalSteps = steps.value.length

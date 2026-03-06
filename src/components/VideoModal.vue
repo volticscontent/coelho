@@ -1,20 +1,22 @@
 <template>
-  <div v-if="show" class="video-modal" @click.self="$emit('close')">
-    <div class="modal-content">
-      <button class="close-button" @click="$emit('close')">
-        <span class="material-icons">close</span>
-      </button>
-      <div class="video-container">
-        <iframe
-          :src="videoUrl"
-          frameborder="0"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowfullscreen
-          title="Vídeo demonstrativo"
-        ></iframe>
+  <transition name="modal" appear>
+    <div v-if="show" class="video-modal" @click.self="$emit('close')">
+      <div class="modal-content">
+        <button class="close-button" @click="$emit('close')">
+          <span class="material-icons">close</span>
+        </button>
+        <div class="video-container">
+          <iframe
+            :src="videoUrl"
+            frameborder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowfullscreen
+            title="Vídeo demonstrativo"
+          ></iframe>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -49,7 +51,9 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;

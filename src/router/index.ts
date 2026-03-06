@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw, NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
-import DesktopBlock from '../views/DesktopBlock.vue'
-import AdminAuth from '../views/AdminAuth.vue'
-import { isMobile } from '../middleware/deviceDetection'
-import PersonalizarView from '@/views/PersonalizarView.vue'
-import PersSteps from '@/components/personalization/PersSteps.vue'
+import { isMobile } from '@/middleware/deviceDetection'
+import { trackPageView } from '@/utils/analytics'
+const HomeView = () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue')
+const DesktopBlock = () => import(/* webpackChunkName: "desktop" */ '../views/DesktopBlock.vue')
+const AdminAuth = () => import(/* webpackChunkName: "admin" */ '../views/AdminAuth.vue')
+const PersonalizarView = () => import(/* webpackChunkName: "personalizar" */ '@/views/PersonalizarView.vue')
+const PersSteps = () => import(/* webpackChunkName: "personalizar-steps" */ '@/components/personalization/PersSteps.vue')
+const ObrigadoView = () => import(/* webpackChunkName: "obrigado" */ '@/views/ObrigadoView.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -12,7 +14,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home',
     component: HomeView,
     meta: {
-      title: 'Recadinho do Stitch - Vídeos Personalizados'
+      title: 'Recadinho do Coelho da Páscoa - Vídeos Personalizados'
     },
     beforeEnter: (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
       const isAdmin = localStorage.getItem('isAdmin') === 'true'
@@ -29,6 +31,14 @@ const routes: Array<RouteRecordRaw> = [
     component: DesktopBlock
   },
   {
+    path: '/obrigado',
+    name: 'obrigado',
+    component: ObrigadoView,
+    meta: {
+      title: 'Obrigado pela Compra! - Recadinho do Coelho da Páscoa'
+    }
+  },
+  {
     path: '/admin',
     name: 'admin',
     component: AdminAuth
@@ -38,7 +48,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'personalizar',
     component: PersonalizarView,
     meta: {
-      title: 'Personalizar Vídeo - Recadinho do Stitch',
+      title: 'Personalizar Vídeo - Recadinho do Coelho da Páscoa',
       scrollToTop: true
     },
     children: [
@@ -51,7 +61,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'personalizar-quantidade',
         component: PersSteps,
         meta: {
-          title: 'Quantidade de Crianças - Recadinho do Stitch',
+          title: 'Quantidade de Crianças - Recadinho do Coelho da Páscoa',
           scrollToTop: true
         }
       },
@@ -60,7 +70,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'personalizar-extras',
         component: PersSteps,
         meta: {
-          title: 'Opções Extras - Recadinho do Stitch',
+          title: 'Opções Extras - Recadinho do Coelho da Páscoa',
           scrollToTop: true
         }
       },
@@ -69,7 +79,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'personalizar-contato',
         component: PersSteps,
         meta: {
-          title: 'Informações de Contato - Recadinho do Stitch',
+          title: 'Informações de Contato - Recadinho do Coelho da Páscoa',
           scrollToTop: true
         }
       }
@@ -90,7 +100,7 @@ const router = createRouter({
     }
 
     if (to.hash) {
-      return { 
+      return {
         el: to.hash,
         behavior: 'smooth',
         offset: { y: 70 } // offset do header
@@ -101,7 +111,7 @@ const router = createRouter({
       return savedPosition
     }
 
-    return { 
+    return {
       top: 0,
       behavior: 'smooth',
       immediate: false
@@ -113,6 +123,11 @@ const router = createRouter({
 router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
   document.title = to.meta.title as string || 'Block'
   next()
+})
+
+// Dispara evento de page view
+router.afterEach((to) => {
+  trackPageView(window.location.origin + to.fullPath)
 })
 
 export default router

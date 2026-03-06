@@ -6,26 +6,28 @@
 @font-face {
   font-family: 'Segoe Print';
   src: url('./fonts/SegoePrint.woff2') format('woff2'),
-       url('./fonts/SegoePrint.woff') format('woff');
+    url('./fonts/SegoePrint.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Fertigo Pro';
   src: url('./fonts/Fertigo-Pro.woff2') format('woff2'),
-       url('./fonts/Fertigo-Pro.woff') format('woff');
+    url('./fonts/Fertigo-Pro.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 :root {
   /* Colors */
-  --primary-color: #006eff;
+  --primary-color: #00b7ff;
   --secondary-color: #28cdff;
   --accent-pink: #FF4D8D;
   --accent-yellow: #d8ff28;
-  --accent-blue: #0099ff;
+  --accent-blue: #25d3ad;
   --text-color: #333333;
   --white: #FFFFFF;
   --gray-50: #F8FAFC;
@@ -35,17 +37,17 @@
   --black: #000000;
 
   /* Gradients */
-  --gradient-primary: linear-gradient(45deg, var(--primary-color), var(--secondary-color) ,var(--accent-blue));
+  --gradient-primary: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-blue));
   --gradient-secondary: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   --gradient-accent: linear-gradient(135deg, var(--accent-pink), #FF8FB8);
-  
+
   /* Shadows */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
   --shadow-primary: 0 4px 12px rgba(0, 89, 255, 0.2);
   --shadow-accent: 0 4px 12px rgba(255, 77, 141, 0.2);
-  
+
   /* Border Radius */
   --radius-sm: 8px;
   --radius-md: 16px;
@@ -71,7 +73,12 @@ body {
   text-align: center;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700;
   letter-spacing: -0.02em;
   font-size: 32px;
@@ -195,7 +202,6 @@ p {
   background: var(--white);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  border: 2px solid var(--accent-yellow);
   transition: none;
 }
 
@@ -228,7 +234,7 @@ p {
   font-family: "Fertigo Pro", Times, "Times New Roman", serif;
   text-align: center;
   width: 100%;
-  margin: 0 auto 40px;
+  margin: 0 auto 10px;
   line-height: 1.15;
   position: relative;
   z-index: 1;
@@ -259,4 +265,33 @@ p {
 .personalizar input::placeholder,
 .personalizar textarea::placeholder {
   font-family: 'Product Sans', sans-serif;
-} 
+}
+
+/* Transições Modernas de Modal / Popup */
+.modal-enter-active,
+.modal-leave-active,
+.popup-enter-active,
+.popup-leave-active {
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-enter-active .modal-content,
+.modal-leave-active .modal-content,
+.popup-enter-active .popup-content,
+.popup-leave-active .popup-content {
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-enter-from,
+.modal-leave-to,
+.popup-enter-from,
+.popup-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-from .modal-content,
+.modal-leave-to .modal-content,
+.popup-enter-from .popup-content,
+.popup-leave-to .popup-content {
+  transform: scale(0.95) translateY(10px);
+}

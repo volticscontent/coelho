@@ -1,8 +1,8 @@
 <template>
   <section :id="id" class="hero">
     <div class="hero__image">
-      <div class="swiper-slide">
-        <img src="@/assets/imgs/VD.png" alt="Hero Image 1" />
+      <div class="video-container">
+        <video src="/hero.mp4" autoplay loop muted playsinline preload="metadata" disablePictureInPicture></video>
       </div>
       
       <h1 class="hero__headline">
@@ -10,8 +10,8 @@
        <br/>alegria infantil
       </h1>
       <p class="hero__subtext">
-        O Stitch vai fazer<br/>
-        um video para o seu filho!
+        O Coelho da Páscoa vai fazer<br/>
+        um vídeo para o seu filho!
       </p>
       
       <button class="btn btn-cta btn-cta-sm hero__cta-btn" @click="goToPersonalization">
@@ -43,8 +43,6 @@
 </template>
 
 <script>
-
-import { Autoplay, Pagination } from 'swiper/modules'
 import VideoModal from './VideoModal.vue'
 import { useRouter } from 'vue-router'
 import { trackComponentEvent } from '@/utils/analytics'
@@ -62,11 +60,6 @@ export default {
   },
   data() {
     return {
-      modules: [Autoplay, Pagination],
-      autoplayConfig: {
-        delay: 5000,
-        disableOnInteraction: false
-      },
       showVideo: false,
       videoUrl: 'https://pub-2303c0d3070d458f94b2c5e86cc6c622.r2.dev/VSL%20SITE.mp4'
     }
@@ -134,15 +127,19 @@ export default {
   height: auto;
 }
 
-.hero__image img {
+.hero__image .video-container,
+.hero__image video {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
   display: block;
 }
 
 .hero__headline {
   position: absolute;
+  border-bottom: 2px solid var(--primary-color);
+  border-radius: 20px;
+  margin-inline: 62px;
   top: 50%;
   left: 0;
   right: 0;
@@ -234,9 +231,9 @@ export default {
   justify-content: center;
   gap: 3px;
   height: 18px;
-  background: rgba(18, 94, 166, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
-  padding: 2px 4px;
+  padding: 4px 4px;
   max-width: 240px;
   margin: 0 auto;
 }
@@ -311,7 +308,8 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .hero__image img {
+  .hero__image img,
+  .hero__image video {
     height: 100%;
     max-height: 80vh;
   }
@@ -341,7 +339,8 @@ export default {
 }
 
 @media (max-width: 480px) {
-  .hero__image img {
+  .hero__image img,
+  .hero__image video {
     max-height: 70vh;
   }
 

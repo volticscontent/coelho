@@ -7,10 +7,10 @@ import whatsapp-button
       <div class="donation-card">
         <div class="donation-header">
           <span class="material-icons">favorite</span>
-          <h3>Doe um vídeo do Stitch</h3>
+          <h3>Doe um vídeo do Coelho da Páscoa</h3>
         </div>
         <div class="donation-content">
-          <p>Ajude a levar alegria para crianças que precisam de um momento especial. Com sua doação, uma criança receberá um vídeo personalizado do Stitch.</p>
+          <p>Ajude a levar alegria para crianças que precisam de um momento especial. Com sua doação, uma criança receberá um vídeo personalizado do Coelho da Páscoa.</p>
           <a :href="whatsappLink" target="_blank" rel="noopener" class="btn btn-primary" @click="trackWhatsAppClick">
             Doar agora
           </a>
@@ -27,7 +27,7 @@ import whatsapp-button
       </div>
 
       <div class="donation-image">
-        <img src="@/assets/imgs/donation.webp" alt="Doações VdKids" />
+        <img src="/donate.png" alt="Doações VdKids" loading="lazy" decoding="async" />
       </div>
     </div>
   </section>
@@ -48,7 +48,7 @@ export default {
   setup() {
     const whatsappLink = computed(() => {
       const number = '+5519984279574'
-      const message = 'Olá! Gostaria de fazer uma doação para o Recadinho do Stitch'
+      const message = 'Olá! Gostaria de fazer uma doação para o Recadinho do Coelho da Páscoa'
       return `https://wa.me/${number}?text=${encodeURIComponent(message)}`
     })
 
@@ -92,7 +92,7 @@ export default {
 <style scoped>
 .donation-social {
   padding: 40px 16px;
-  background: linear-gradient(180deg, #ffffff 0%, #89f1ff96 100%); /* Azul claro */
+  background: rgb(255, 255, 255); /* Azul claro */
 }
 
 .donation-social__container {
@@ -101,7 +101,7 @@ export default {
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 44px;
 }
 
 .donation-content {

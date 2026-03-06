@@ -17,12 +17,6 @@ if (process.env.NODE_ENV === 'production') {
   preventInspect()
 }
 
-// Importações do Swiper
-import 'swiper/css'
-import 'swiper/css/pagination'
-import 'swiper/css/navigation'
-import 'swiper/css/effect-fade'
-
 // Configura o comportamento de scroll
 setupScrollBehavior()
 

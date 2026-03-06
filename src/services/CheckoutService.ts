@@ -19,37 +19,37 @@ export interface CheckoutData {
 export class CheckoutService {
   static readonly CHECKOUT_URLS: CheckoutUrls = {
     // 1 criança
-    base_1: 'https://go.perfectpay.com.br/PPU38CPO0DP',
-    '4k_1': 'https://go.perfectpay.com.br/PPU38CPO0DR',
-    foto_1: 'https://go.perfectpay.com.br/PPU38CPO0DQ',
-    rapido_1: 'https://go.perfectpay.com.br/PPU38CPO0DT',
-    '4k_foto_1': 'https://go.perfectpay.com.br/PPU38CPO0DU',
-    '4k_rapido_1': 'https://go.perfectpay.com.br/PPU38CPO0EM',
-    foto_rapido_1: 'https://go.perfectpay.com.br/PPU38CPO0E0',
-    '4k_foto_rapido_1': 'https://go.perfectpay.com.br/PPU38CPO0EN',
-    premium_1: 'https://go.perfectpay.com.br/PPU38CPO0EQ',
+    base_1: 'https://go.perfectpay.com.br/PPU38CPKHIF', // Checkout - 1 Criança
+    '4k_1': 'https://go.perfectpay.com.br/PPU38CPKHJJ', // Checkout - 1 criança + Vídeo 4K
+    foto_1: 'https://go.perfectpay.com.br/PPU38CPKHJP', // Checkout - 1 criança + Foto
+    rapido_1: 'https://go.perfectpay.com.br/PPU38CPKHJS', // Checkout - 1 criança + Entrega Rápida
+    '4k_foto_1': 'https://go.perfectpay.com.br/PPU38CPKHJU', // Checkout - 1 criança + 4K + Foto
+    '4k_rapido_1': 'https://go.perfectpay.com.br/PPU38CPKHK0', // Checkout - 1 criança + 4K + Entrega Rápida
+    foto_rapido_1: 'https://go.perfectpay.com.br/PPU38CPKHK2', // Checkout - 1 criança + Foto + Entrega Rápida
+    '4k_foto_rapido_1': 'https://go.perfectpay.com.br/PPU38CPKHK3', // Checkout - 1 criança + 4K + Foto + Entrega Rápida
+    premium_1: 'https://go.perfectpay.com.br/PPU38CPKHK4', // Checkout - 1 criança + Combo Premium
 
     // 2 crianças
-    base_2: 'https://go.perfectpay.com.br/PPU38CPO0FO',
-    '4k_2': 'https://go.perfectpay.com.br/PPU38CPO0GO',
-    foto_2: 'https://go.perfectpay.com.br/PPU38CPO0GN',
-    rapido_2: 'https://go.perfectpay.com.br/PPU38CPO0GP',
-    '4k_foto_2': 'https://go.perfectpay.com.br/PPU38CPO0GS',
-    '4k_rapido_2': 'https://go.perfectpay.com.br/PPU38CPO0H2',
-    foto_rapido_2: 'https://go.perfectpay.com.br/PPU38CPO0H1',
-    '4k_foto_rapido_2': 'https://go.perfectpay.com.br/PPU38CPO0H3',
-    premium_2: 'https://go.perfectpay.com.br/PPU38CPO0H4',
+    base_2: 'https://go.perfectpay.com.br/PPU38CPKHK7', // Checkout - 2 crianças (sem adicionais)
+    '4k_2': 'https://go.perfectpay.com.br/PPU38CPKHK8', // Checkout - 2 crianças + 4K
+    foto_2: 'https://go.perfectpay.com.br/PPU38CPKHK9', // Checkout - 2 crianças + Foto
+    rapido_2: 'https://go.perfectpay.com.br/PPU38CPKHKA', // Checkout - 2 crianças + Entrega Rápida
+    '4k_foto_2': 'https://go.perfectpay.com.br/PPU38CPKHKB', // Checkout - 2 crianças + 4K + Foto
+    '4k_rapido_2': 'https://go.perfectpay.com.br/PPU38CPKHKC', // Checkout - 2 crianças + 4K + Entrega Rápida
+    foto_rapido_2: 'https://go.perfectpay.com.br/PPU38CPKHKD', // Checkout - 2 crianças + Foto + Entrega Rápida
+    '4k_foto_rapido_2': 'https://go.perfectpay.com.br/PPU38CPKHKI', // Checkout - 2 crianças + 4K + Foto + Entrega Rápida
+    premium_2: 'https://go.perfectpay.com.br/PPU38CQ8EB2', // Checkout - 2 crianças combo premium
 
     // 3+ crianças
-    base_3: 'https://go.perfectpay.com.br/PPU38CPO0H5',
-    '4k_3': 'https://go.perfectpay.com.br/PPU38CPO0H7',
-    foto_3: 'https://go.perfectpay.com.br/PPU38CPO0H6',
-    rapido_3: 'https://go.perfectpay.com.br/PPU38CPO0HK',
-    '4k_foto_3': 'https://go.perfectpay.com.br/PPU38CPO0HN',
-    '4k_rapido_3': 'https://go.perfectpay.com.br/PPU38CPO0HQ',
-    foto_rapido_3: 'https://go.perfectpay.com.br/PPU38CPO0HP',
-    '4k_foto_rapido_3': 'https://go.perfectpay.com.br/PPU38CPO0HT',
-    premium_3: 'https://go.perfectpay.com.br/PPU38CPO0I1',
+    base_3: 'https://go.perfectpay.com.br/PPU38CQ8EBB', // Checkout - 3+ crianças sem adicionais
+    '4k_3': 'https://go.perfectpay.com.br/PPU38CPKHKP', // Checkout - 3+ crianças + 4K
+    foto_3: 'https://go.perfectpay.com.br/PPU38CPKHKR', // Checkout - 3+ crianças + Foto
+    rapido_3: 'https://go.perfectpay.com.br/PPU38CPKHKT', // Checkout - 3+ crianças + Entrega Rápida
+    '4k_foto_3': 'https://go.perfectpay.com.br/PPU38CPKHL0', // Checkout - 3+ crianças + 4K + Foto
+    '4k_rapido_3': 'https://go.perfectpay.com.br/PPU38CPKHL2', // Checkout - 3+ crianças + 4K + Entrega Rápida
+    foto_rapido_3: 'https://go.perfectpay.com.br/PPU38CPKHL3', // Checkout - 3+ crianças + Foto + Entrega Rápida
+    '4k_foto_rapido_3': 'https://go.perfectpay.com.br/PPU38CPKHL4', // Checkout - 3+ crianças + 4K + Foto + Entrega Rápida
+    premium_3: 'https://go.perfectpay.com.br/PPU38CPKHL5', // Checkout - 3+ crianças + Combo Premium
 
     // Produtos adicionais
     kit_atividades: 'https://go.perfectpay.com.br/PPU38CPO0I3',
@@ -59,9 +59,9 @@ export class CheckoutService {
   }
 
   static processCheckout(data: CheckoutData): string {
-    // Validação específica para vídeo do Stitch
-    if (data.product !== 'video_stitch') {
-      throw new Error('Produto inválido. Deve ser um vídeo do Stitch.')
+    // Validação específica para vídeo do Coelho da Páscoa
+    if (data.product !== 'video_coelho') {
+      throw new Error('Produto inválido. Deve ser um vídeo do Coelho da Páscoa.')
     }
 
     // Validação da quantidade
@@ -71,7 +71,7 @@ export class CheckoutService {
 
     const quantity = data.quantity
     const options = Array.isArray(data.options) ? data.options : []
-    
+
     // Determinar a URL correta baseada nas opções
     const key = this.determineCheckoutKey(quantity, options)
     const url = this.CHECKOUT_URLS[key]
@@ -86,7 +86,7 @@ export class CheckoutService {
   private static determineCheckoutKey(quantity: number, options: string[]): CheckoutUrlKey {
     // Lógica para determinar a chave correta baseada nas opções
     let key = 'base'
-    
+
     if (options.includes('premium')) {
       key = 'premium'
     } else if (options.includes('4k') && options.includes('foto') && options.includes('rapido')) {

@@ -11,7 +11,7 @@ const stepsData: QuizStep[] = [
     icon: 'child_care',
     component: markRaw(PersQuantity),
     title: 'Quantas crianças participarão?',
-    description: 'Selecione a quantidade de crianças que conversarão com o Stitch',
+    description: 'Selecione a quantidade de crianças que conversarão com o Coelho da Páscoa',
     path: '/personalizar/quantidade'
   },
   {
@@ -35,7 +35,7 @@ const stepsData: QuizStep[] = [
 ]
 
 const initialQuizData: QuizData = {
-  product: 'video_stitch',
+  product: 'video_coelho',
   quantity: 1,
   options: [],
   children: [],
@@ -60,8 +60,8 @@ export function useQuiz() {
         return true
       case 3:
         return Boolean(
-          quizData.value.contactEmail && 
-          quizData.value.contactPhone && 
+          quizData.value.contactEmail &&
+          quizData.value.contactPhone &&
           quizData.value.contactName &&
           quizData.value.dataCommitment
         )

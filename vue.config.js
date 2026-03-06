@@ -17,6 +17,26 @@ module.exports = defineConfig({
       alias: {
         '@': path.resolve(__dirname, 'src')
       }
+    },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+        maxInitialRequests: 5,
+        minSize: 20000,
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module) {
+              const context = module.context || '';
+              const match = context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/);
+              if (!match) return 'npm.vendors';
+              const packageName = match[1];
+              return `npm.${packageName.replace('@', '')}`;
+            },
+            chunks: 'all'
+          }
+        }
+      }
     }
   }
 })

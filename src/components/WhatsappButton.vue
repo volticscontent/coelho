@@ -22,7 +22,7 @@ export default {
   computed: {
     whatsappLink() {
       const number = '+5519984279574'
-      const message = 'Olá! Preciso de ajuda com meu Recadinho do Stitch'
+      const message = 'Olá! Preciso de ajuda com meu Recadinho do Coelho da Páscoa'
       return `https://wa.me/${number}?text=${encodeURIComponent(message)}`
     }
   },
@@ -47,7 +47,7 @@ export default {
 .btn-circle {
   width: 56px;
   height: 56px;
-  background: #25D366;
+  background: #25d3ad;
   border-radius: 50%;
   display: flex;
   align-items: center;

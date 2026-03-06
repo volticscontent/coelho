@@ -168,6 +168,7 @@ export default defineComponent({
 <style scoped>
 .step-content {
   text-align: center;
+  margin-inline: 12px;
 }
 
 .step-title {

@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="footer__container">
       <div class="footer__logo">
-        <img src="@/assets/imgs/logo.png" alt="VdKids Logo" />
+        <img src="/logo.png" alt="VdKids Logo" />
       </div>
 
       <div class="footer__links">
@@ -69,7 +69,6 @@ export default {
 
 <style scoped>
 .footer {
-  margin-bottom: 100px;
   padding: 40px 16px 24px;
   background: var(--gray-50);
   border-top: 1px solid var(--gray-100);
@@ -90,6 +89,7 @@ export default {
 .footer__logo img {
   height: 40px;
   object-fit: contain;
+  border-radius: 360px;
 }
 
 .footer__links {

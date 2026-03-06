@@ -9,7 +9,7 @@
           </div>
           <div class="card-content">
             <h3>Vídeo para mais de uma criança</h3>
-            <p>Surpreenda irmãos ou amigos com uma mensagem especial do Stitch</p>
+            <p>Surpreenda irmãos ou amigos com uma mensagem especial do Coelho da Páscoa</p>
             <button class="btn-info" @click="handleClick('kids')">
               Ver opções
               <span class="material-icons">arrow_forward</span>

@@ -46,6 +46,7 @@ export interface QuizStep {
   id: number
   label: string
   icon: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: any
   title: string
   description: string

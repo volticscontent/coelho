@@ -30,13 +30,6 @@
 import { defineComponent, ref, watch } from 'vue'
 import type { QuizData } from '@/types/quiz'
 
-interface TypeOption {
-  id: string
-  title: string
-  description: string
-  price: number
-  icon: string
-}
 
 export default defineComponent({
   name: 'PersType',
@@ -151,6 +144,7 @@ export default defineComponent({
 .type-section {
   text-align: center;
   padding: 16px 0;
+  margin-inline: 22px;
 }
 
 .step-title {
@@ -201,8 +195,8 @@ export default defineComponent({
 }
 
 .type-icon {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;

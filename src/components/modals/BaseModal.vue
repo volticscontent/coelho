@@ -1,12 +1,14 @@
 <template>
-  <div class="modal-overlay" @click="$emit('close')">
-    <div class="modal-content" @click.stop>
-      <button class="modal-close" @click="$emit('close')">
-        <span class="material-icons">close</span>
-      </button>
-      <slot></slot>
+  <transition name="modal" appear>
+    <div class="modal-overlay" @click="$emit('close')">
+      <div class="modal-content" @click.stop>
+        <button class="modal-close" @click="$emit('close')">
+          <span class="material-icons">close</span>
+        </button>
+        <slot></slot>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -22,7 +24,9 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,25 +37,35 @@ export default {
 .modal-content {
   background: var(--white);
   border-radius: var(--radius-lg);
-  padding: 24px;
+  padding: 32px;
   max-width: 480px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .modal-close {
   position: absolute;
   top: 16px;
   right: 16px;
-  background: transparent;
+  background: var(--gray-50);
   border: none;
+  border-radius: 50%;
   cursor: pointer;
-  padding: 4px;
+  padding: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-color);
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background: var(--gray-100);
+  transform: scale(1.05);
+  color: var(--accent-pink);
 }
 </style> 

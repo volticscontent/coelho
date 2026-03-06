@@ -12,12 +12,12 @@ export interface AnalyticsEvent {
   item_name?: string;
   price?: number;
   cart_value?: number;
-  items?: any[];
+  items?: Record<string, unknown>[];
   // Propriedades para personalização
   personalization_step?: string;
   from_step?: string;
   to_step?: string;
-  step_data?: any;
+  step_data?: unknown;
 }
 
 // Função principal para enviar eventos
@@ -207,36 +207,38 @@ export const trackComponentEvent = {
 // Declare o tipo gtag no window
 declare global {
   interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     gtag: (command: string, event: string, params: any) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     fbq?: (event: string, ...args: any[]) => void;
   }
 }
 
 // Eventos de E-commerce
 export const ecommerceEvents = {
-  viewItem: (product: any) => trackEvent({
+  viewItem: (product: { id: string | number; name: string; price: number }) => trackEvent({
     event_name: 'view_item',
     event_category: 'ecommerce',
     event_action: 'view',
-    event_label: product.id,
+    event_label: String(product.id),
     component: 'ProductCard',
     item_id: product.id,
     item_name: product.name,
     price: product.price
   }),
 
-  addToCart: (product: any) => trackEvent({
+  addToCart: (product: { id: string | number; name: string; price: number }) => trackEvent({
     event_name: 'add_to_cart',
     event_category: 'ecommerce',
     event_action: 'add',
-    event_label: product.id,
+    event_label: String(product.id),
     component: 'ProductCard',
     item_id: product.id,
     item_name: product.name,
     price: product.price
   }),
 
-  beginCheckout: (cartData: any) => trackEvent({
+  beginCheckout: (cartData: { total: number; items: Record<string, unknown>[] }) => trackEvent({
     event_name: 'begin_checkout',
     event_category: 'ecommerce',
     event_action: 'click',
@@ -246,8 +248,23 @@ export const ecommerceEvents = {
   })
 };
 
-export const trackPageView = () => {
-  if (window.fbq) {
+export const trackPageView = (url?: string) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    try {
+      window.gtag('event', 'page_view', {
+        page_location: url || window.location.href,
+        page_title: document.title
+      });
+    } catch (error) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('Google Analytics PageView event in development');
+      } else {
+        console.error('Error tracking Google Analytics PageView:', error);
+      }
+    }
+  }
+
+  if (typeof window !== 'undefined' && window.fbq) {
     try {
       window.fbq('track', 'PageView');
     } catch (error) {

@@ -1,7 +1,7 @@
 <template>
   <div class="desktop-block">
     <div class="block-content">
-      <img src="@/assets/imgs/logo.png" alt="Logo" class="block-logo">
+      <img src="logo.png" alt="Logo" class="block-logo">
       <h1 class="title-custom">
         Versão Mobile
       </h1>

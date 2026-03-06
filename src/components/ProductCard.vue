@@ -37,6 +37,9 @@ export default defineComponent({
 .product-card {
   background: var(--white);
   border-radius: 12px;
+  border-left: 2px solid rgb(228, 228, 228);
+  border-right: 1px solid rgb(160, 160, 160);
+  border-bottom: 1px solid rgb(202, 202, 202);
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.2s ease;
@@ -80,7 +83,9 @@ export default defineComponent({
 .product-price {
   font-size: 24px;
   font-weight: 700;
-  color: var(--primary-color);
+  color: white;
+  background-color: var(--primary-color);
+  border-radius: 12px;
   font-family: 'Product Sans', sans-serif;
 }
 

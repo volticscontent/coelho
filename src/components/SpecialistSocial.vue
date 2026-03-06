@@ -1,7 +1,7 @@
 <template>
   <section class="specialist-social">
     <div class="specialist-social__container">
-      <h2 class="title-custom">O que os especialistas falam sobre o vídeo do Stitch</h2>
+      <h2 class="title-custom">O que os especialistas falam sobre o vídeo do Coelho da Páscoa</h2>
       
       <div class="specialist-card">
         <div class="specialist-header">
@@ -13,7 +13,7 @@
         </div>
 
         <div class="specialist-content">
-          <p>"O vídeo personalizado do Stitch é uma ferramenta incrível para criar momentos mágicos e memoráveis para as crianças. A personalização com o nome da criança e mensagens especiais fortalece o vínculo emocional e torna a experiência ainda mais especial e significativa."</p>
+          <p>"O vídeo personalizado do Coelho da Páscoa é uma ferramenta incrível para criar momentos mágicos e memoráveis para as crianças. A personalização com o nome da criança e mensagens especiais fortalece o vínculo emocional e torna a experiência ainda mais especial e significativa."</p>
           
           <button 
             class="btn btn-outline"
@@ -27,11 +27,12 @@
     </div>
 
     <!-- Popup -->
-    <div 
-      v-if="showPopup" 
-      class="popup-overlay"
-      @click="showPopup = false"
-    >
+    <transition name="popup" appear>
+      <div 
+        v-if="showPopup" 
+        class="popup-overlay"
+        @click="showPopup = false"
+      >
       <div 
         class="popup-content"
         @click.stop
@@ -43,7 +44,7 @@
           <span class="material-icons">close</span>
         </button>
 
-        <h3>Por que as crianças amam receber vídeos do Stitch?</h3>
+        <h3>Por que as crianças amam receber vídeos do Coelho da Páscoa?</h3>
         
         <div class="reasons">
           <div class="reason">
@@ -55,13 +56,13 @@
           <div class="reason">
             <span class="material-icons">chat</span>
             <h4>Personalização Especial</h4>
-            <p>O Stitch fala diretamente com a criança, usando seu nome e mensagens personalizadas</p>
+            <p>O Coelho da Páscoa fala diretamente com a criança, usando seu nome e mensagens personalizadas</p>
           </div>
 
           <div class="reason">
             <span class="material-icons">favorite</span>
             <h4>Momento de Alegria</h4>
-            <p>A criança se sente especial ao receber uma mensagem única do Stitch</p>
+            <p>A criança se sente especial ao receber uma mensagem única do Coelho da Páscoa</p>
           </div>
 
           <div class="reason">
@@ -75,10 +76,11 @@
           @click="goToPersonalization"
           class="btn btn-cta"
         >
-          Criar vídeo do Stitch agora
+          Criar vídeo do Coelho da Páscoa agora
         </button>
       </div>
     </div>
+    </transition>
   </section>
 </template>
 
@@ -121,12 +123,12 @@ export default {
 
 <style scoped>
 .specialist-social {
-  padding: 40px 16px;
+  padding: 10px 0px;
   background: linear-gradient(180deg, #ffffff 0%, #ffffff 100%); /* Amarelo médio */
 }
 
 .specialist-social__container {
-  max-width: 320px;
+  max-width: 400px;
   margin: 0 auto;
   text-align: center;
 }
@@ -184,12 +186,13 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: 16px;
 }
 
 .popup-content {
@@ -197,21 +200,34 @@ export default {
   border-radius: var(--radius-lg);
   padding: 32px;
   max-width: 600px;
-  width: 100%;
+  width: 120%;
   position: relative;
   max-height: 90vh;
   overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .close-btn {
   position: absolute;
   top: 16px;
   right: 16px;
-  background: none;
+  background: var(--gray-50);
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: 8px;
+  border-radius: 50%;
   color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: var(--gray-100);
+  transform: scale(1.05);
+  color: var(--accent-pink);
 }
 
 .popup-content h3 {

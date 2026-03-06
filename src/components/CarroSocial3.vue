@@ -11,7 +11,7 @@
       </div>
 
       <div class="message">
-        <p>Veja o que os pais estão falando sobre o vídeo do Stitch. Cada mensagem é única e especial, criada com muito carinho para <br> fazer seu pequeno sorrir!</p>
+        <p>Veja o que os pais estão falando sobre o vídeo do Coelho da Páscoa. Cada mensagem é única e especial, criada com muito carinho para <br> fazer seu pequeno sorrir!</p>
       </div>
 
       <!-- Carrossel de Comentários -->
@@ -79,7 +79,7 @@ export default {
         {
           name: "@Cecilia_Alves",
           avatar: require("@/assets/imgs/avatar16.jpg"),
-          text: "A melhor surpresa que já fiz para minha filha! Ela adorou ver o Stitch falando com ela."
+          text: "A melhor surpresa que já fiz para minha filha! Ela adorou ver o Coelho da Páscoa falando com ela."
         },
         {
           name: "@Luiza_Pereira",

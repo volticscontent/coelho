@@ -6,7 +6,6 @@
     <StarProduct1 id="star-product" />
     <CarroSocial1 id="carro-social-1" />
     <MapSell id="map-sell" />
-    <!-- <VdProduct1 /> -->
     <CarroSocial2 />
     <WhySell id="why-sell" />
     <WhyUpsell />
@@ -28,7 +27,6 @@ import CarroBenefit from '@/components/CarroBenefit.vue'
 import StarProduct1 from '@/components/StarProduct1.vue'
 import CarroSocial1 from '@/components/CarroSocial1.vue'
 import MapSell from '@/components/MapSell.vue'
-// import VdProduct1 from '@/components/VdProduct1.vue'
 import CarroSocial2 from '@/components/CarroSocial2.vue'
 import WhySell from '@/components/WhySell.vue'
 import WhyUpsell from '@/components/WhyUpsell.vue'

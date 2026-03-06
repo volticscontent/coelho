@@ -3,10 +3,10 @@ import surpriseImage from '../assets/imgs/SURPRESA.png'
 export interface Product {
   id: string
   name: string
+  description: string
   basePrice: number
   image: string
   thumbnail: string
-  description: string
   alternativeNames: string[]
   category: string
   featured: boolean
@@ -24,6 +24,7 @@ export interface Product {
 export interface BunnyVideo {
   id: string
   name: string
+  description: string
   basePrice: number
   image: string
   thumbnail: string
@@ -45,9 +46,10 @@ export interface VideoOption {
   icon: string
 }
 
-export const STITCH_VIDEO: BunnyVideo = {
-  id: 'video_stitch',
-  name: 'Vídeo do Stitch',
+export const COELHO_VIDEO: BunnyVideo = {
+  id: 'video_coelho',
+  name: 'Vídeo do Coelho da Páscoa',
+  description: 'O Coelho da pascoa vai esconder os ovos na pascoa! Será que seu filho vai conseguir encontrar?',
   basePrice: 47.90,
   image: surpriseImage,
   thumbnail: surpriseImage,
@@ -62,8 +64,8 @@ export const STITCH_VIDEO: BunnyVideo = {
     },
     {
       id: 'foto',
-      title: 'Foto com o Stitch',
-      description: 'Foto personalizada com o Stitch',
+      title: 'Foto com o Coelho da Páscoa',
+      description: 'Foto personalizada com o Coelho da Páscoa',
       price: 14,
       icon: 'photo_camera'
     },
@@ -89,7 +91,7 @@ export const STITCH_VIDEO: BunnyVideo = {
     includes: [
       'Vídeo personalizado com o nome da criança',
       'Conversa interativa e divertida',
-      'Mensagem especial do Stitch',
+      'Mensagem especial do Coelho da Páscoa',
       'Música temática de fundo',
       'Efeitos especiais mágicos',
       'Garantia de encantamento'

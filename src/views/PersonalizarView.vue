@@ -24,7 +24,6 @@ import { trackAddToCart } from '@/utils/analytics'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 // import PersHero from '@/components/personalization/PersHero.vue'
-import { useQuiz } from '@/composables/useQuiz'
 
 import type { QuizData } from '@/types/quiz'
 
