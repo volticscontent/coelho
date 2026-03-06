@@ -7,7 +7,7 @@
       
       <div class="cta-box">
         <h3>Próximo passo:</h3>
-        <p>Clique no botão abaixo para nos avisar no WhatsApp e receber as instruções de entrega do seu vídeo personalizado.</p>
+        <p>Seu video será entregue em até 24 horas no e-mail!. Qualquer dúvida clique no botão abaixo!</p>
         <a :href="whatsappLink" target="_blank" class="whatsapp-btn">
           <span class="material-icons">chat</span>
           Falar no WhatsApp
@@ -24,7 +24,7 @@ export default defineComponent({
   name: 'ObrigadoView',
   setup() {
     // Número a definir pelo usuário 
-    const whatsappLink = ref('https://wa.me/5511999999999?text=Olá!%20Acabei%20de%20fazer%20o%20pagamento%20do%20vídeo%20do%20Coelho!');
+    const whatsappLink = ref('https://wa.me/553184865510?text=Olá!%20Acabei%20de%20fazer%20o%20pagamento%20do%20vídeo%20do%20Coelho!');
     
     onMounted(async () => {
       const sessionId = localStorage.getItem('rabbit_session_id');
@@ -85,7 +85,7 @@ export default defineComponent({
 
 .success-icon {
   font-size: 64px;
-  color: #4CAF50;
+  color: #25d390!important;
   margin-bottom: 20px;
 }
 
@@ -115,12 +115,16 @@ p {
   margin-bottom: 8px;
 }
 
+.material-icons {
+  color: white;
+}
+
 .whatsapp-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #25D366;
+  background: #25d390;
   color: white;
   text-decoration: none;
   padding: 14px 28px;

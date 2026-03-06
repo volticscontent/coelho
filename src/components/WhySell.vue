@@ -21,7 +21,7 @@
 
         <div class="feature">
           <span class="material-icons">mail</span>
-          <h3>Receba o vídeo por email em até 2 horas</h3>
+          <h3>Receba o vídeo por email em até 24 horas</h3>
         </div>
       </div>
 

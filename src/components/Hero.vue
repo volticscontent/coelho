@@ -2,7 +2,7 @@
   <section :id="id" class="hero">
     <div class="hero__image">
       <div class="video-container">
-        <video src="/hero.mp4" autoplay loop muted playsinline preload="metadata" disablePictureInPicture></video>
+        <video src="/hero.mp4" autoplay loop muted playsinline preload="metadata" disablePictureInPicture oncontextmenu="return false;" style="pointer-events: none;"></video>
       </div>
       
       <h1 class="hero__headline">

@@ -47,7 +47,7 @@ export default {
   },
   setup() {
     const whatsappLink = computed(() => {
-      const number = '+5519984279574'
+      const number = '+553184865510'
       const message = 'Olá! Gostaria de fazer uma doação para o Recadinho do Coelho da Páscoa'
       return `https://wa.me/${number}?text=${encodeURIComponent(message)}`
     })

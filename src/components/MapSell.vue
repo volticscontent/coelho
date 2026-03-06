@@ -41,7 +41,7 @@
           </div>
           <div class="step__content">
             <h3 class="step__title">Receba</h3>
-            <p class="step__text">O vídeo personalizado será enviado por email em até 2 horas</p>
+            <p class="step__text">O vídeo personalizado será enviado por email em até 24 horas</p>
             <div class="step__features">
               <span class="feature-tag">Entrega rápida</span>
               <span class="feature-tag">Email seguro</span>

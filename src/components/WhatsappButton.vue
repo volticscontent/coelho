@@ -21,7 +21,7 @@ export default {
   name: 'WhatsappButton',
   computed: {
     whatsappLink() {
-      const number = '+5519984279574'
+      const number = '+553184865510'
       const message = 'Olá! Preciso de ajuda com meu Recadinho do Coelho da Páscoa'
       return `https://wa.me/${number}?text=${encodeURIComponent(message)}`
     }

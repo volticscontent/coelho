@@ -94,11 +94,12 @@
               <strong>R$ 59,99</strong>
             </div>
           </div>
+          <button class="btn btn-cta btn-popup" @click="goToPersonalization">Personalizar Vídeo Agora</button>
         </div>
 
         <div v-if="activePopup === 'photos'" class="popup-photos">
           <h3>Torne o vídeo ainda mais especial!</h3>
-          <p>Imagine a reação das crianças ao verem suas fotos no vídeo do Papai Noel</p>
+          <p>Imagine a reação das crianças ao verem suas fotos no vídeo do Coelho da Páscoa</p>
           
           <div class="photo-feature">
             <span class="material-icons feature-icon">add_photo_alternate</span>
@@ -108,13 +109,14 @@
               <p class="bonus">+ Efeitos especiais exclusivos</p>
             </div>
           </div>
+          <button class="btn btn-cta btn-popup" @click="goToPersonalization">Deixar o Vídeo Mágico</button>
         </div>
 
         <div v-if="activePopup === 'delivery'" class="popup-delivery">
           <h3>Entrega Super Rápida</h3>
           <div class="delivery-info">
             <span class="material-icons">timer</span>
-            <p>Receba seu vídeo em <strong>até 2 horas</strong></p>
+            <p>Receba seu vídeo em <strong>até 24 horas</strong></p>
           </div>
           <div class="delivery-steps">
             <div class="step">
@@ -134,6 +136,7 @@
             <span class="material-icons">rocket_launch</span>
             <p>Surpreenda ainda hoje!</p>
           </div>
+          <button class="btn btn-cta btn-popup" @click="goToPersonalization">Garantir Entrega Rápida</button>
         </div>
 
         <div v-if="activePopup === 'quality'" class="popup-quality">
@@ -166,6 +169,7 @@
             <span class="material-icons">thumb_up</span>
             <p>Satisfação garantida ou seu dinheiro de volta</p>
           </div>
+          <button class="btn btn-cta btn-popup" @click="goToPersonalization">Quero Qualidade de Cinema</button>
         </div>
       </div>
     </div>
@@ -176,8 +180,14 @@
 import { defineComponent } from 'vue'
 import { trackComponentEvent } from '@/utils/analytics'
 
+import { useRouter } from 'vue-router'
+
 export default defineComponent({
   name: 'WhyUpsell',
+  setup() {
+    const router = useRouter()
+    return { router }
+  },
   data() {
     return {
       activePopup: null as string | null
@@ -209,6 +219,11 @@ export default defineComponent({
     },
     closePopup() {
       this.activePopup = null
+    },
+    goToPersonalization() {
+      window.scrollTo({ top: 0, behavior: 'auto' })
+      this.closePopup()
+      this.router.push({ name: 'personalizar-quantidade' })
     }
   }
 })
@@ -333,11 +348,105 @@ export default defineComponent({
 }
 
 /* Novos estilos para os popups */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.popup-content {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: var(--white);
+  padding: 32px 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.popup-content::-webkit-scrollbar {
+  width: 6px;
+}
+.popup-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.popup-content::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #f1f3f5;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 2;
+}
+
+.close-btn:hover {
+  background: #e9ecef;
+}
+
+.close-btn .material-icons {
+  font-size: 20px;
+  color: var(--text-color);
+}
+
+.popup-content h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 8px;
+  margin-top: 8px;
+  font-family: 'Product Sans', sans-serif;
+  text-align: center;
+}
+
+.popup-content p {
+  font-size: 15px;
+  color: var(--gray-600);
+  margin-bottom: 24px;
+  line-height: 1.5;
+  font-family: 'Product Sans', sans-serif;
+  text-align: center;
+}
+
+.price-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .price-option {
   position: relative;
   padding: 16px;
   background: #f8f9fa;
   border: 1px solid #e9ecef;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
 }
 
 .price-option.recommended {
@@ -349,149 +458,73 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex: 1;
+}
+
+.price-info span {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
 }
 
 .price-detail {
-  font-size: 12px;
-  color: #666;
-}
-
-.photo-feature {
-  text-align: center;
-  padding: 24px;
-  background: #f8f9fa;
-  border-radius: var(--radius-lg);
-  margin-top: 16px;
-}
-
-.feature-icon {
-  font-size: 48px;
-  color: var(--accent-blue);
-  margin-bottom: 16px;
-}
-
-.bonus {
-  font-size: 14px;
-  color: #00b67a;
-  margin-top: 8px;
-}
-
-.delivery-info, .quality-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  background: #f8f9fa;
-  border-radius: var(--radius-sm);
-  margin-bottom: 8px;
-}
-
-.quality-features {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 16px 0;
-}
-
-.delivery-note, .quality-note {
-  font-size: 14px;
-  color: #666;
-  text-align: center;
-  margin-top: 16px;
-}
-
-/* Popup Styles */
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.popup-content {
-  position: relative;
-  width: 90%;
-  max-width: 320px;
-  background: var(--white);
-  padding: 24px;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-}
-
-.close-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-}
-
-.close-btn .material-icons {
-  font-size: 24px;
-  color: var(--text-color);
-}
-
-.popup-content h3 {
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--text-color);
-  margin-bottom: 16px;
-  margin-top: 16px;
-  font-family: 'Product Sans', sans-serif;
-}
-
-.popup-content p {
-  font-size: 16px;
-  color: var(--text-color);
-  margin-bottom: 16px;
-  font-family: 'Product Sans', sans-serif;
-}
-
-.price-options {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.price-option span {
-  font-size: 16px;
-  color: var(--text-color);
-  font-family: 'Product Sans', sans-serif;
+  font-size: 13px !important;
+  color: #666 !important;
+  margin-bottom: 0 !important;
+  text-align: left !important;
 }
 
 .price-option strong {
-  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  background: var(--white);
+  border-radius: 8px;
   color: var(--accent-blue);
-  font-family: 'Product Sans', sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  white-space: nowrap;
 }
 
-.price {
-  display: block;
-  font-size: 24px;
-  color: var(--accent-blue);
+.photo-feature {
+  background: rgba(0, 89, 255, 0.05);
+  border-radius: 16px;
+  padding: 24px;
   text-align: center;
-  margin-top: 8px;
-  font-family: 'Product Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-
-/* Novos estilos para melhorar os popups */
-.feature-list {
-  text-align: left;
-  margin: 12px 0;
-  padding-left: 20px;
+.feature-icon {
+  font-size: 40px !important;
+  color: var(--primary-color);
+  margin-bottom: 12px;
 }
 
-.feature-list li {
-  margin-bottom: 8px;
+.feature-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.feature-content p {
+  margin: 0 !important;
+}
+
+.feature-content .price {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin: 8px 0;
+}
+
+.feature-content .bonus {
+  color: #00b67a;
+  font-weight: 500;
   font-size: 14px;
 }
 
@@ -507,30 +540,70 @@ export default defineComponent({
   align-items: center;
   gap: 12px;
   background: #f8f9fa;
-  padding: 12px;
-  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+.step p {
+  margin: 0 !important;
+  text-align: left !important;
+  font-size: 14px !important;
+  color: var(--text-color) !important;
 }
 
 .step-number {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
   background: var(--accent-blue);
   color: white;
   border-radius: 50%;
   font-weight: bold;
+  font-size: 14px;
+}
+
+.delivery-info, .quality-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.delivery-info p {
+  margin: 0 !important;
+  text-align: left !important;
+  font-size: 15px !important;
+}
+
+.delivery-info .material-icons {
+  font-size: 28px;
+  color: #ff9500;
 }
 
 .quality-intro {
-  margin-bottom: 16px;
+  margin-bottom: 16px !important;
+}
+
+.quality-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .quality-item {
-  display: flex;
-  align-items: flex-start;
   text-align: left;
+  margin-bottom: 0;
+}
+
+.quality-item .material-icons {
+  font-size: 28px;
+  color: var(--primary-color);
 }
 
 .quality-item h4 {
@@ -540,8 +613,10 @@ export default defineComponent({
 }
 
 .quality-item p {
-  margin: 0;
-  font-size: 14px;
+  margin: 0 !important;
+  font-size: 13px !important;
+  text-align: left !important;
+  color: #666 !important;
 }
 
 .quality-guarantee {
@@ -549,64 +624,42 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: 16px;
+  margin-top: 20px;
   padding: 12px;
   background: rgba(0, 89, 255, 0.05);
-  border-radius: var(--radius-sm);
+  border-radius: 8px;
+}
+
+.quality-guarantee p {
+  margin: 0 !important;
+  font-size: 14px !important;
+  color: var(--text-color) !important;
 }
 
 .quality-guarantee .material-icons {
   color: var(--accent-blue);
+  font-size: 20px;
 }
 
-.popup-photos .photo-feature {
-  text-align: left;
-  padding: 20px;
-}
-
-.popup-photos .price {
-  display: inline-block;
-  margin: 16px 0;
-  padding: 8px 16px;
-  background: var(--white);
+.btn-popup {
+  width: 100%;
+  margin-top: 24px;
+  background: var(--primary-color);
   color: white;
-  border-radius: var(--radius-sm);
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Product Sans', sans-serif;
+  display: block;
 }
 
-.popup-kids .price-option {
-  text-align: left;
-  padding: 16px;
-}
-
-.popup-kids .price-option strong {
-  display: inline-block;
-  padding: 4px 8px;
-  background: rgba(0, 89, 255, 0.1);
-  border-radius: var(--radius-sm);
-}
-
-/* Novos estilos para os cards ajustados */
-
-.character {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.character .material-icons {
-  font-size: 24px;
-  color: var(--accent-blue);
-  background: white;
-  padding: 8px;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.character p {
-  font-size: 12px;
-  margin: 0;
-  color: white;
+.btn-popup:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 89, 255, 0.2);
 }
 
 .instant-badge {
@@ -614,58 +667,76 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: 16px;
-  padding: 12px;
+  margin-top: 24px;
+  padding: 14px;
   background: #5ed371;
   color: white;
-  border-radius: var(--radius-sm);
+  border-radius: 12px;
   font-weight: bold;
+}
+
+.instant-badge p {
+  margin: 0 !important;
+  color: white !important;
+  font-weight: 600;
+  font-size: 16px !important;
 }
 
 .instant-badge .material-icons {
   color: white;
 }
 
-.delivery-info .material-icons {
-  font-size: 28px;
-  color: #ff9500;
+@media (max-width: 480px) {
+  .popup-content {
+    padding: 24px 20px;
+  }
+  
+  .popup-content h3 {
+    font-size: 18px;
+  }
+  
+  .popup-content p {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  
+  .price-option {
+    padding: 12px;
+    gap: 8px;
+  }
+  
+  .price-info span {
+    font-size: 14px;
+  }
+  
+  .price-detail {
+    font-size: 12px !important;
+  }
+  
+  .price-option strong {
+    font-size: 14px;
+    padding: 4px 8px;
+  }
+  
+  .feature-icon {
+    font-size: 32px !important;
+  }
+  
+  .feature-content .price {
+    font-size: 24px;
+  }
+  
+  .delivery-info, .quality-item, .step {
+    padding: 12px;
+    gap: 12px;
+  }
 }
 
-.popup-photos {
-  text-align: center;
-}
-
-.photo-feature {
-  background: rgba(0, 89, 255, 0.05);
-  border-radius: 16px;
-  padding: 24px;
+.btn-popup {
+  width: 100%;
   margin-top: 24px;
+  padding: 14px 24px;
+  font-size: 16px;
+  border-radius: 12px;
 }
-
-.feature-icon {
-  font-size: 48px !important;
-  color: var(--primary-color);
-  margin-bottom: 16px;
-}
-
-.feature-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.feature-content p {
-  margin: 0;
-}
-
-.feature-content .price {
-  font-size: 32px;
-  color: var(--primary-color);
-}
-
-.feature-content .bonus {
-  color: #00b67a;
-  font-weight: 500;
-}
-</style> 
+</style>

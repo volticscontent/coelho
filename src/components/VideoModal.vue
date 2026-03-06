@@ -6,13 +6,16 @@
           <span class="material-icons">close</span>
         </button>
         <div class="video-container">
-          <iframe
+          <video
             :src="videoUrl"
-            frameborder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowfullscreen
-            title="Vídeo demonstrativo"
-          ></iframe>
+            autoplay
+            loop
+            muted
+            playsinline
+            disablePictureInPicture
+            oncontextmenu="return false;"
+            style="pointer-events: none;"
+          ></video>
         </div>
       </div>
     </div>
@@ -103,7 +106,8 @@ export default {
   padding-bottom: 56.25%; /* 16:9 */
 }
 
-.video-container iframe {
+.video-container iframe,
+.video-container video {
   position: absolute;
   top: 0;
   left: 0;
