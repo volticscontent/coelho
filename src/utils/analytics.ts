@@ -268,11 +268,7 @@ export const trackPageView = (url?: string) => {
     try {
       window.fbq('track', 'PageView');
     } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('Facebook PageView event in development');
-      } else {
-        console.error('Error tracking Facebook PageView:', error);
-      }
+      console.error('Error tracking Facebook PageView:', error);
     }
   }
 };
@@ -282,11 +278,7 @@ export const trackInitiateCheckout = () => {
     try {
       window.fbq('track', 'InitiateCheckout');
     } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('Facebook InitiateCheckout event in development');
-      } else {
-        console.error('Error tracking Facebook InitiateCheckout:', error);
-      }
+      console.error('Error tracking Facebook InitiateCheckout:', error);
     }
   }
 };
@@ -296,11 +288,7 @@ export const trackAddToCart = () => {
     try {
       window.fbq('track', 'AddToCart');
     } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('Facebook AddToCart event in development');
-      } else {
-        console.error('Error tracking Facebook AddToCart:', error);
-      }
+      console.error('Error tracking Facebook AddToCart:', error);
     }
   }
 }; 
