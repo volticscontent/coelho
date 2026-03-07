@@ -178,13 +178,7 @@ p {
   margin: 0 auto;
 }
 
-/* Hero specific CTA */
-.hero__cta-btn {
-  position: absolute !important;
-  top: 76% !important;
-  left: 29% !important;
-}
-
+/* O botão hero__cta-btn agora é manipulado via Flexbox no Hero.vue */
 .hero__cta-btn:hover {
   transform: none !important;
   opacity: 0.9 !important;

@@ -2,26 +2,26 @@
   <section :id="id" class="hero">
     <div class="hero__image">
       <div class="video-container">
-        <video ref="heroVideo" src="/hero.mp4" autoplay loop muted playsinline preload="metadata" disablePictureInPicture oncontextmenu="return false;" style="pointer-events: none;"></video>
+        <video ref="heroVideo" src="/hero.mp4" autoplay loop muted playsinline webkit-playsinline disablePictureInPicture oncontextmenu="return false;" style="pointer-events: none; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); outline: none; border: none;"></video>
       </div>
-      
-      <h1 class="hero__headline">
-        Espalhe
-       <br/>alegria infantil
-      </h1>
-      <p class="hero__subtext">
-        O Coelho da Páscoa vai fazer<br/>
-        um vídeo para o seu filho!
-      </p>
-      
-      <button class="btn btn-cta btn-cta-sm hero__cta-btn" @click="goToPersonalization">
-        Criar video
-      </button>
+      <div class="hero__content">
+        <h1 class="hero__headline">
+          Espalhe
+         <br/>alegria infantil
+        </h1>
+        <div class="hero__subtext">
+          O Coelho da Páscoa vai fazer<br/>
+          um vídeo para o seu filho!
+        </div>
 
-       <!-- <button class="btn btn-play btn-play-sm hero__player-btn" @click="openVideo">
-        <span class="material-icons">play_circle</span>
-        Ver Exemplo
-      </button>  -->
+        <button class="btn btn-cta btn-cta-sm hero__cta-btn" @click="goToPersonalization">
+          Criar video
+        </button>
+         <!-- <button class="btn btn-play btn-play-sm hero__player-btn" @click="openVideo">
+          <span class="material-icons">play_circle</span>
+          Ver Exemplo
+        </button>  -->
+      </div>
 
       <div class="hero__trustpilot">
         <div class="rating-container">
@@ -111,16 +111,20 @@ export default {
       const video = this.$refs.heroVideo
       if (video) {
         video.muted = true
-        const playPromise = video.play()
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {
-            // Tenta novamente após interação do usuário
-            const playOnInteraction = () => {
-              video.play()
-              document.removeEventListener('touchstart', playOnInteraction)
-            }
-            document.addEventListener('touchstart', playOnInteraction, { once: true })
-          })
+        // Removido o video.load(), pois no iOS Safari isso corta o ciclo natural do "autoplay" 
+        // HTML e causa uma falha por não ser "user gesture" 
+        if (video.paused) {
+          const playPromise = video.play()
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              // Tenta novamente após interação do usuário
+              const playOnInteraction = () => {
+                video.play()
+                document.removeEventListener('touchstart', playOnInteraction)
+              }
+              document.addEventListener('touchstart', playOnInteraction, { once: true })
+            })
+          }
         }
       }
     })
@@ -153,59 +157,64 @@ export default {
   display: block;
 }
 
-/* Esconde botão de play nativo do iOS */
+/* Esconde botão de play nativo do iOS (Toda a Shadow DOM) */
+video::-webkit-media-controls,
 video::-webkit-media-controls-start-playback-button,
 video::-webkit-media-controls-play-button,
-video::-webkit-media-controls {
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-overlay-play-button {
   display: none !important;
-  -webkit-appearance: none;
+  -webkit-appearance: none !important;
+  opacity: 0 !important;
 }
 
 video {
   -webkit-appearance: none;
+  outline: none;
+}
+
+.hero__content {
+  position: absolute;
+  top: 55%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .hero__headline {
-  position: absolute;
   border-bottom: 2px solid var(--primary-color);
   border-radius: 20px;
   margin-inline: 62px;
-  top: 50%;
-  left: 0;
-  right: 0;
   font-size: 40px;
   line-height: 1.1;
   color: var(--white);
   font-family: "Fertigo Pro", Times, "Times New Roman", serif;
-  z-index: 2;
+  margin: 0;
 }
 
 .hero__subtext {
-  position: absolute;
-  top: 67%;
-  left: 0;
-  right: 0;
   font-size: 15px;
   line-height: 1.3;
   color: var(--white);
   opacity: 0.9;
   font-family: 'Product Sans', sans-serif;
-  z-index: 2;
+  margin: 0;
 }
 
 .hero__cta-btn {
-  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 76%;
-  left: 29%;
   z-index: 2;
-}
-
-.hero__cta-btn:hover,
-.hero__cta-btn:active {
-  transform: translateX(-50%) !important;
+  pointer-events: auto; /* Necessário, pois o container pai tem pointer-events: none */
+  padding: 12px 24px;
+  min-width: 200px;
 }
 
 .hero__player-btn {
@@ -402,18 +411,22 @@ video {
 
 /* iPhone 12 Pro, iPhone 12 Mini, iPhone SE e menores (≤ 390px) */
 @media (max-width: 390px) {
+  .hero__content {
+    top: 50%;
+    gap: 20px;
+  }
+
   .hero__headline {
-    font-size: 36px !important;
-    margin-inline: 20px;
+    font-size: 30px !important;
+    margin-inline: 15px;
+    padding: 0px 5px;
   }
 
   .hero__subtext {
     font-size: 15px !important;
-    top: 65%;
   }
 
   .hero__cta-btn {
-    top: 74%;
     font-size: 15px !important;
     width: 170px !important;
   }
@@ -421,19 +434,21 @@ video {
 
 /* Telas muito pequenas - iPhone SE 1ª gen, etc (≤ 320px) */
 @media (max-width: 320px) {
+  .hero__content {
+    top: 48%;
+    gap: 16px;
+  }
+
   .hero__headline {
-    font-size: 28px !important;
-    margin-inline: 14px;
-    top: 45%;
+    font-size: 26px !important;
+    margin-inline: 10px;
   }
 
   .hero__subtext {
     font-size: 13px !important;
-    top: 62%;
   }
 
   .hero__cta-btn {
-    top: 72%;
     font-size: 13px !important;
     width: 150px !important;
   }
