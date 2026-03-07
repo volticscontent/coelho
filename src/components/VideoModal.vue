@@ -7,6 +7,7 @@
         </button>
         <div class="video-container">
           <video
+            ref="modalVideo"
             :src="videoUrl"
             autoplay
             loop
@@ -39,6 +40,17 @@ export default {
     show(newVal) {
       if (newVal) {
         document.body.style.overflow = 'hidden'
+        // Força autoplay no iOS Safari quando o modal abre
+        this.$nextTick(() => {
+          const video = this.$refs.modalVideo
+          if (video) {
+            video.muted = true
+            const playPromise = video.play()
+            if (playPromise !== undefined) {
+              playPromise.catch(() => { /* ignorar erro de interrupção */ })
+            }
+          }
+        })
       } else {
         document.body.style.overflow = ''
       }
@@ -113,6 +125,18 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+/* Esconde botão de play nativo do iOS */
+.video-container video::-webkit-media-controls-start-playback-button,
+.video-container video::-webkit-media-controls-play-button,
+.video-container video::-webkit-media-controls {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+.video-container video {
+  -webkit-appearance: none;
 }
 
 @media (max-width: 768px) {

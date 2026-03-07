@@ -2,7 +2,7 @@
   <section :id="id" class="hero">
     <div class="hero__image">
       <div class="video-container">
-        <video src="/hero.mp4" autoplay loop muted playsinline preload="metadata" disablePictureInPicture oncontextmenu="return false;" style="pointer-events: none;"></video>
+        <video ref="heroVideo" src="/hero.mp4" autoplay loop muted playsinline preload="metadata" disablePictureInPicture oncontextmenu="return false;" style="pointer-events: none;"></video>
       </div>
       
       <h1 class="hero__headline">
@@ -106,6 +106,24 @@ export default {
         this.closeVideo()
       }
     })
+    // Força autoplay no iOS Safari
+    this.$nextTick(() => {
+      const video = this.$refs.heroVideo
+      if (video) {
+        video.muted = true
+        const playPromise = video.play()
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Tenta novamente após interação do usuário
+            const playOnInteraction = () => {
+              video.play()
+              document.removeEventListener('touchstart', playOnInteraction)
+            }
+            document.addEventListener('touchstart', playOnInteraction, { once: true })
+          })
+        }
+      }
+    })
   },
   beforeUnmount() {
     document.removeEventListener('keydown', this.closeVideo)
@@ -133,6 +151,18 @@ export default {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* Esconde botão de play nativo do iOS */
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+video {
+  -webkit-appearance: none;
 }
 
 .hero__headline {
@@ -367,6 +397,45 @@ export default {
 
   .hero__player-btn .material-icons {
     font-size: 16px;
+  }
+}
+
+/* iPhone 12 Pro, iPhone 12 Mini, iPhone SE e menores (≤ 390px) */
+@media (max-width: 390px) {
+  .hero__headline {
+    font-size: 36px !important;
+    margin-inline: 20px;
+  }
+
+  .hero__subtext {
+    font-size: 15px !important;
+    top: 65%;
+  }
+
+  .hero__cta-btn {
+    top: 74%;
+    font-size: 15px !important;
+    width: 170px !important;
+  }
+}
+
+/* Telas muito pequenas - iPhone SE 1ª gen, etc (≤ 320px) */
+@media (max-width: 320px) {
+  .hero__headline {
+    font-size: 28px !important;
+    margin-inline: 14px;
+    top: 45%;
+  }
+
+  .hero__subtext {
+    font-size: 13px !important;
+    top: 62%;
+  }
+
+  .hero__cta-btn {
+    top: 72%;
+    font-size: 13px !important;
+    width: 150px !important;
   }
 }
 
