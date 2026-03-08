@@ -2,33 +2,45 @@
   <section :id="id" class="hero">
     <div class="hero__image">
       <div class="video-container">
-        <video ref="heroVideo" src="/hero.mp4" autoplay loop muted playsinline webkit-playsinline disablePictureInPicture oncontextmenu="return false;" style="pointer-events: none; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); outline: none; border: none;"></video>
-      </div>
-      <div class="hero__content">
-        <h1 class="hero__headline">
-          Espalhe
-         <br/>alegria infantil
-        </h1>
-        <div class="hero__subtext">
-          O Coelho da Páscoa vai fazer<br/>
-          um vídeo para o seu filho!
+        <video
+          ref="heroVideo"
+          autoplay
+          loop
+          muted
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          disablePictureInPicture
+          oncontextmenu="return false;"
+          @canplay="onVideoCanPlay"
+        >
+          <source src="/hero.mp4" type="video/mp4" />
+        </video>
+        <!-- Overlay para suprimir o botão de play nativo do iOS Safari -->
+        <div class="video-overlay"></div>
+        
+        <div class="hero__content">
+          <h1 class="hero__headline">
+            Espalhe
+            <br/>alegria infantil
+          </h1>
+          <div class="hero__subtext">
+            O Coelho da Páscoa vai fazer<br/>
+            um vídeo para o seu filho!
+          </div>
+
+          <button class="btn hero__cta-btn" @click="goToPersonalization">
+            Criar video
+          </button>
         </div>
 
-        <button class="btn btn-cta btn-cta-sm hero__cta-btn" @click="goToPersonalization">
-          Criar video
-        </button>
-         <!-- <button class="btn btn-play btn-play-sm hero__player-btn" @click="openVideo">
-          <span class="material-icons">play_circle</span>
-          Ver Exemplo
-        </button>  -->
-      </div>
-
-      <div class="hero__trustpilot">
-        <div class="rating-container">
-          <img src="@/assets/imgs/trustpilotbadge_159x41.webp" alt="Trustpilot" class="trustpilot-logo" />
-          <span class="rating">4.7 de 1403 avaliações</span>
-          <div class="stars">
-            <span class="material-icons" v-for="i in 5" :key="i">star</span>
+        <div class="hero__trustpilot">
+          <div class="rating-container">
+            <img src="@/assets/imgs/trustpilotbadge_159x41.webp" alt="Trustpilot" class="trustpilot-logo" />
+            <span class="rating">4.7 de 1403 avaliações</span>
+            <div class="stars">
+              <span class="material-icons" v-for="i in 5" :key="i">star</span>
+            </div>
           </div>
         </div>
       </div>
@@ -98,6 +110,13 @@ export default {
     },
     closeVideo() {
       this.showVideo = false
+    },
+    onVideoCanPlay() {
+      const video = this.$refs.heroVideo
+      if (video && video.paused) {
+        video.muted = true
+        video.play().catch(() => {})
+      }
     }
   },
   mounted() {
@@ -106,36 +125,58 @@ export default {
         this.closeVideo()
       }
     })
-    // Força autoplay no iOS Safari
+
     this.$nextTick(() => {
       const video = this.$refs.heroVideo
-      if (video) {
-        video.muted = true
-        // Removido o video.load(), pois no iOS Safari isso corta o ciclo natural do "autoplay" 
-        // HTML e causa uma falha por não ser "user gesture" 
-        if (video.paused) {
-          const playPromise = video.play()
-          if (playPromise !== undefined) {
-            playPromise.catch(() => {
-              // Tenta novamente após interação do usuário
-              const playOnInteraction = () => {
-                video.play()
-                document.removeEventListener('touchstart', playOnInteraction)
-              }
-              document.addEventListener('touchstart', playOnInteraction, { once: true })
-            })
-          }
+      if (!video) return
+
+      // Garante muted e playsinline via JS (belt & suspenders para iOS)
+      video.muted = true
+      video.setAttribute('playsinline', '')
+      video.setAttribute('webkit-playsinline', '')
+
+      const tryPlay = () => {
+        if (!video.paused) return
+        const promise = video.play()
+        if (promise !== undefined) {
+          promise.catch(() => {
+            // Fallback: tenta no primeiro toque do usuário
+            document.addEventListener('touchstart', () => {
+              video.muted = true
+              video.play().catch(() => {})
+            }, { once: true })
+          })
         }
       }
+
+      // Se o vídeo já está pronto, tenta imediatamente
+      if (video.readyState >= 2) {
+        tryPlay()
+      } else {
+        // Aguarda o vídeo ter dados suficientes
+        video.addEventListener('canplay', tryPlay, { once: true })
+      }
+
+      // Retoma o vídeo quando o usuário volta para a aba
+      this._visibilityHandler = () => {
+        if (document.visibilityState === 'visible') {
+          video.muted = true
+          video.play().catch(() => {})
+        }
+      }
+      document.addEventListener('visibilitychange', this._visibilityHandler)
     })
   },
   beforeUnmount() {
     document.removeEventListener('keydown', this.closeVideo)
+    if (this._visibilityHandler) {
+      document.removeEventListener('visibilitychange', this._visibilityHandler)
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .hero {
   width: 100%;
   position: relative;
@@ -149,40 +190,48 @@ export default {
   height: auto;
 }
 
-.hero__image .video-container,
+.hero__image .video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: block;
+}
+
 .hero__image video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-/* Esconde botão de play nativo do iOS (Toda a Shadow DOM) */
-video::-webkit-media-controls,
-video::-webkit-media-controls-start-playback-button,
-video::-webkit-media-controls-play-button,
-video::-webkit-media-controls-panel,
-video::-webkit-media-controls-overlay-play-button {
-  display: none !important;
-  -webkit-appearance: none !important;
-  opacity: 0 !important;
-}
-
-video {
   -webkit-appearance: none;
+  appearance: none;
   outline: none;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+/* Overlay que bloqueia a shadow DOM de controles nativos do iOS */
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .hero__content {
   position: absolute;
-  top: 55%;
+  top: 0;
   left: 0;
-  right: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 32px;
+  justify-content: flex-end;
+  padding: 20px 20px 80px 20px;
+  gap: 24px;
   z-index: 2;
   pointer-events: none;
 }
@@ -208,33 +257,54 @@ video {
 }
 
 .hero__cta-btn {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   z-index: 2;
-  pointer-events: auto; /* Necessário, pois o container pai tem pointer-events: none */
-  padding: 12px 24px;
-  min-width: 200px;
+  pointer-events: auto;
+  padding: 8px 24px !important;
+  line-height: 1 !important;
+  width: auto !important;
+  min-width: unset !important;
+  flex: none !important;
+  background: var(--accent-blue);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  font-size: 16px !important;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 15px rgba(0, 183, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.hero__cta-btn:hover {
+  background: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 183, 255, 0.5);
 }
 
 .hero__player-btn {
   position: absolute;
-  font-size: 12px !important;
-  color: var(--white) !important;
+  font-size: 12px;
+  color: var(--white);
   top: 85%;
   left: 50%;
   transform: translateX(-50%);
-  padding: 8px 10px !important;
-  width: 130px !important;
+  padding: 8px 10px;
+  width: 130px;
   z-index: 2;
-  background: rgba(255, 255, 255, 0.2) !important;
-  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: none !important;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .hero__player-btn:hover {
@@ -338,9 +408,9 @@ video {
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.0),
-    rgba(0, 0, 0, 0.0),
-    rgba(0, 0, 0, 0.6),
-    rgba(0, 0, 0, 0.9)
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.3)
   );
   z-index: 1;
   pointer-events: none;
@@ -362,12 +432,12 @@ video {
   }
 
   .hero__cta-btn {
-    font-size: 18px !important;
-    width: 200px !important;
+    font-size: 16px !important;
+    padding: 2px 20px !important;
   }
 
   .hero__player-btn {
-    font-size: px !important;
+    font-size: 10px !important;
     padding: 6px 12px !important;
     min-width: 100px !important;
   }
@@ -394,8 +464,8 @@ video {
   }
 
   .hero__cta-btn {
-    font-size: 16px !important;
-    width: 180px !important;
+    font-size: 15px !important;
+    padding: 2px 18px !important;
   }
 
   .hero__player-btn {
@@ -409,11 +479,10 @@ video {
   }
 }
 
-/* iPhone 12 Pro, iPhone 12 Mini, iPhone SE e menores (≤ 390px) */
 @media (max-width: 390px) {
   .hero__content {
-    top: 50%;
     gap: 20px;
+    padding-bottom: 70px;
   }
 
   .hero__headline {
@@ -427,16 +496,15 @@ video {
   }
 
   .hero__cta-btn {
-    font-size: 15px !important;
-    width: 170px !important;
+    font-size: 14px !important;
+    padding: 2px 16px !important;
   }
 }
 
-/* Telas muito pequenas - iPhone SE 1ª gen, etc (≤ 320px) */
 @media (max-width: 320px) {
   .hero__content {
-    top: 48%;
     gap: 16px;
+    padding-bottom: 60px;
   }
 
   .hero__headline {
@@ -450,7 +518,7 @@ video {
 
   .hero__cta-btn {
     font-size: 13px !important;
-    width: 150px !important;
+    padding: 2px 14px !important;
   }
 }
 

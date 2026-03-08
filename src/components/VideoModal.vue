@@ -13,6 +13,7 @@
             loop
             muted
             playsinline
+            webkit-playsinline
             disablePictureInPicture
             oncontextmenu="return false;"
             style="pointer-events: none;"
@@ -72,7 +73,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: -1;
+  z-index: 9999;
   padding: 24px;
 }
 
@@ -130,13 +131,16 @@ export default {
 /* Esconde botão de play nativo do iOS */
 .video-container video::-webkit-media-controls-start-playback-button,
 .video-container video::-webkit-media-controls-play-button,
+.video-container video::-webkit-media-controls-overlay-play-button,
 .video-container video::-webkit-media-controls {
   display: none !important;
   -webkit-appearance: none;
+  appearance: none;
 }
 
 .video-container video {
   -webkit-appearance: none;
+  appearance: none;
 }
 
 @media (max-width: 768px) {

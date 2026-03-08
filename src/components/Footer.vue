@@ -31,7 +31,7 @@
       </div>
 
       <div class="footer__bottom">
-        <p class="copyright">© 2025 ZapKids</p>
+        <p class="copyright">© 2025 VdKids</p>
         <div class="payment-methods">
           <img src="@/assets/imgs/payment-methods.webp" alt="Métodos de Pagamento" />
         </div>

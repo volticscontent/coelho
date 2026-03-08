@@ -141,6 +141,7 @@ export default {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-style: italic; 
 }
 
 .rating-card {
@@ -153,7 +154,7 @@ export default {
 .stars {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 5px;
   margin-bottom: 8px;
 }
 
@@ -172,11 +173,12 @@ export default {
 
 .message {
   font-size: 16px;
-  line-height: 1.5;
-  color: var(--text-color);
+  line-height: 1.2;
+  color: #000000;
+  font-weight: 550;
   font-family: 'Product Sans', sans-serif;
-  opacity: 0.9;
-  padding: 0 8px;
+  opacity: 1;
+  padding: 0 4px;
 }
 
 .message p {

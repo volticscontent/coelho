@@ -3,10 +3,28 @@
 @import 'swiper/css/pagination';
 @import 'swiper/css/navigation';
 
+/* ==============================================
+   GLOBAL: Esconde controles nativos de vídeo no iOS Safari
+   IMPORTANTE: Precisa ser global (não scoped) para afetar a Shadow DOM
+   ============================================== */
+video::-webkit-media-controls,
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-overlay-play-button,
+video::-webkit-media-controls-enclosure {
+  display: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+
 @font-face {
-  font-family: 'Segoe Print';
-  src: url('./fonts/SegoePrint.woff2') format('woff2'),
-    url('./fonts/SegoePrint.woff') format('woff');
+  font-family: 'SegoePrint';
+  src: url('~@/assets/fonts/SegoePrint.woff2') format('woff2'),
+    url('~@/assets/fonts/SegoePrint.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -14,8 +32,8 @@
 
 @font-face {
   font-family: 'Fertigo Pro';
-  src: url('./fonts/Fertigo-Pro.woff2') format('woff2'),
-    url('./fonts/Fertigo-Pro.woff') format('woff');
+  src: url('~@/assets/fonts/Fertigo-Pro.woff2') format('woff2'),
+    url('~@/assets/fonts/Fertigo-Pro.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -60,7 +78,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe Print', Arial, sans-serif;
+}
+
+.material-icons {
+  font-family: 'Material Icons' !important;
 }
 
 body {
@@ -69,7 +90,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'NomeDaFonte', sans-serif;
+  font-family: 'SegoePrint', sans-serif;
   text-align: center;
 }
 

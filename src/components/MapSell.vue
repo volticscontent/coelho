@@ -229,9 +229,10 @@ export default {
 
 .cta-text {
   margin-top: 16px;
-  font-family: 'Product Sans', sans-serif;
+  font-family: 'SegoePrint', sans-serif !important;
   font-size: 1.1rem;
-  color: var(--text-color);
+  color: white;
+  text-shadow: 2px 2px 2px var(--text-color);
   opacity: 0.9;
 }
 
