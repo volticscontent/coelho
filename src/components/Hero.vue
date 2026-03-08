@@ -2,22 +2,30 @@
   <section :id="id" class="hero">
     <div class="hero__image">
       <div class="video-container">
-        <video
-          ref="heroVideo"
-          autoplay
-          loop
-          muted
-          playsinline
-          webkit-playsinline
-          preload="auto"
-          disablePictureInPicture
-          oncontextmenu="return false;"
-          @canplay="onVideoCanPlay"
-        >
-          <source src="/hero.mp4" type="video/mp4" />
-        </video>
-        <!-- Overlay para suprimir o botão de play nativo do iOS Safari -->
-        <div class="video-overlay"></div>
+        <!-- No iOS, mostra imagem estática ao invés do vídeo -->
+        <img
+          v-if="isIOS"
+          src="/hero.png"
+          alt="Coelho da Páscoa"
+          class="hero-fallback-img"
+        />
+        <template v-else>
+          <video
+            ref="heroVideo"
+            autoplay
+            loop
+            muted
+            playsinline
+            webkit-playsinline
+            preload="auto"
+            disablePictureInPicture
+            oncontextmenu="return false;"
+            @canplay="onVideoCanPlay"
+          >
+            <source src="/hero.mp4" type="video/mp4" />
+          </video>
+          <div class="video-overlay"></div>
+        </template>
         
         <div class="hero__content">
           <h1 class="hero__headline">
@@ -73,7 +81,8 @@ export default {
   data() {
     return {
       showVideo: false,
-      videoUrl: 'https://pub-2303c0d3070d458f94b2c5e86cc6c622.r2.dev/VSL%20SITE.mp4'
+      videoUrl: 'https://pub-2303c0d3070d458f94b2c5e86cc6c622.r2.dev/VSL%20SITE.mp4',
+      isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
     }
   },
   setup() {
@@ -126,46 +135,45 @@ export default {
       }
     })
 
-    this.$nextTick(() => {
-      const video = this.$refs.heroVideo
-      if (!video) return
+    // Só inicializa lógica de vídeo se NÃO for iOS
+    if (!this.isIOS) {
+      this.$nextTick(() => {
+        const video = this.$refs.heroVideo
+        if (!video) return
 
-      // Garante muted e playsinline via JS (belt & suspenders para iOS)
-      video.muted = true
-      video.setAttribute('playsinline', '')
-      video.setAttribute('webkit-playsinline', '')
+        video.muted = true
+        video.setAttribute('playsinline', '')
+        video.setAttribute('webkit-playsinline', '')
 
-      const tryPlay = () => {
-        if (!video.paused) return
-        const promise = video.play()
-        if (promise !== undefined) {
-          promise.catch(() => {
-            // Fallback: tenta no primeiro toque do usuário
-            document.addEventListener('touchstart', () => {
-              video.muted = true
-              video.play().catch(() => { /* iOS autoplay fallback */ })
-            }, { once: true })
-          })
+        const tryPlay = () => {
+          if (!video.paused) return
+          const promise = video.play()
+          if (promise !== undefined) {
+            promise.catch(() => {
+              // Fallback: tenta no primeiro toque do usuário
+              document.addEventListener('touchstart', () => {
+                video.muted = true
+                video.play().catch(() => { /* autoplay fallback */ })
+              }, { once: true })
+            })
+          }
         }
-      }
 
-      // Se o vídeo já está pronto, tenta imediatamente
-      if (video.readyState >= 2) {
-        tryPlay()
-      } else {
-        // Aguarda o vídeo ter dados suficientes
-        video.addEventListener('canplay', tryPlay, { once: true })
-      }
-
-      // Retoma o vídeo quando o usuário volta para a aba
-      this._visibilityHandler = () => {
-        if (document.visibilityState === 'visible') {
-          video.muted = true
-          video.play().catch(() => { /* iOS visibility resume */ })
+        if (video.readyState >= 2) {
+          tryPlay()
+        } else {
+          video.addEventListener('canplay', tryPlay, { once: true })
         }
-      }
-      document.addEventListener('visibilitychange', this._visibilityHandler)
-    })
+
+        this._visibilityHandler = () => {
+          if (document.visibilityState === 'visible') {
+            video.muted = true
+            video.play().catch(() => { /* visibility resume */ })
+          }
+        }
+        document.addEventListener('visibilitychange', this._visibilityHandler)
+      })
+    }
   },
   beforeUnmount() {
     document.removeEventListener('keydown', this.closeVideo)
@@ -208,6 +216,13 @@ export default {
   outline: none;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
+}
+
+.hero-fallback-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Overlay que bloqueia a shadow DOM de controles nativos do iOS */
