@@ -19,37 +19,37 @@ export interface CheckoutData {
 export class CheckoutService {
   static readonly CHECKOUT_URLS: CheckoutUrls = {
     // 1 criança
-    base_1: 'https://go.perfectpay.com.br/PPU38CPKHIF', // Checkout - 1 Criança
-    '4k_1': 'https://go.perfectpay.com.br/PPU38CPKHJJ', // Checkout - 1 criança + Vídeo 4K
-    foto_1: 'https://go.perfectpay.com.br/PPU38CPKHJP', // Checkout - 1 criança + Foto
-    rapido_1: 'https://go.perfectpay.com.br/PPU38CPKHJS', // Checkout - 1 criança + Entrega Rápida
-    '4k_foto_1': 'https://go.perfectpay.com.br/PPU38CPKHJU', // Checkout - 1 criança + 4K + Foto
-    '4k_rapido_1': 'https://go.perfectpay.com.br/PPU38CPKHK0', // Checkout - 1 criança + 4K + Entrega Rápida
-    foto_rapido_1: 'https://go.perfectpay.com.br/PPU38CPKHK2', // Checkout - 1 criança + Foto + Entrega Rápida
-    '4k_foto_rapido_1': 'https://go.perfectpay.com.br/PPU38CPKHK3', // Checkout - 1 criança + 4K + Foto + Entrega Rápida
-    premium_1: 'https://go.perfectpay.com.br/PPU38CPKHK4', // Checkout - 1 criança + Combo Premium
+    base_1: 'https://go.perfectpay.com.br/PPU38CQ8E66', // Checkout - 1 Criança - R$ 47,90
+    '4k_1': 'https://go.perfectpay.com.br/PPU38CQ8EAI', // Checkout - 1 criança + Vídeo 4K - R$ 57,90
+    foto_1: 'https://go.perfectpay.com.br/PPU38CQ8EA9', // Checkout - 1 criança + Foto - R$ 61,90
+    rapido_1: 'https://go.perfectpay.com.br/PPU38CQ8EA8', // Checkout - 1 criança + Entrega Rápida - R$ 57,90
+    '4k_foto_1': 'https://go.perfectpay.com.br/PPU38CQ8EA4', // Checkout - 1 criança + 4K + Foto - R$ 71,90
+    '4k_rapido_1': 'https://go.perfectpay.com.br/PPU38CQ8EA1', // Checkout - 1 criança + 4K + Entrega Rápida - R$ 67,90
+    foto_rapido_1: 'https://go.perfectpay.com.br/PPU38CQ8EAB', // Checkout - 1 criança + Foto + Entrega Rápida - R$ 71,90
+    '4k_foto_rapido_1': 'https://go.perfectpay.com.br/PPU38CQ8EA6', // Checkout - 1 criança + 4K + Foto + Entrega Rápida - R$ 81,90
+    premium_1: 'https://go.perfectpay.com.br/PPU38CQ8EA7', // Checkout - 1 criança + Combo Premium - R$ 67,80
 
     // 2 crianças
-    base_2: 'https://go.perfectpay.com.br/PPU38CPKHK7', // Checkout - 2 crianças (sem adicionais)
-    '4k_2': 'https://go.perfectpay.com.br/PPU38CPKHK8', // Checkout - 2 crianças + 4K
-    foto_2: 'https://go.perfectpay.com.br/PPU38CPKHK9', // Checkout - 2 crianças + Foto
-    rapido_2: 'https://go.perfectpay.com.br/PPU38CPKHKA', // Checkout - 2 crianças + Entrega Rápida
-    '4k_foto_2': 'https://go.perfectpay.com.br/PPU38CPKHKB', // Checkout - 2 crianças + 4K + Foto
-    '4k_rapido_2': 'https://go.perfectpay.com.br/PPU38CPKHKC', // Checkout - 2 crianças + 4K + Entrega Rápida
-    foto_rapido_2: 'https://go.perfectpay.com.br/PPU38CPKHKD', // Checkout - 2 crianças + Foto + Entrega Rápida
-    '4k_foto_rapido_2': 'https://go.perfectpay.com.br/PPU38CPKHKI', // Checkout - 2 crianças + 4K + Foto + Entrega Rápida
-    premium_2: 'https://go.perfectpay.com.br/PPU38CQ8EB2', // Checkout - 2 crianças combo premium
+    base_2: 'https://go.perfectpay.com.br/PPU38CQ8EAL', // Checkout - 2 crianças (sem adicionais) - R$ 57,90
+    '4k_2': 'https://go.perfectpay.com.br/PPU38CQ8EAN', // Checkout - 2 crianças + 4K - R$ 67,90
+    foto_2: 'https://go.perfectpay.com.br/PPU38CQ8EB8', // Checkout - 2 crianças + Foto - R$ 71,90
+    rapido_2: 'https://go.perfectpay.com.br/PPU38CQ8EB3', // Checkout - 2 crianças + Entrega Rápida - R$ 67,90
+    '4k_foto_2': 'https://go.perfectpay.com.br/PPU38CQ8EAQ', // Checkout - 2 crianças + 4K + Foto - R$ 81,90
+    '4k_rapido_2': 'https://go.perfectpay.com.br/PPU38CQ8EAO', // Checkout - 2 crianças + 4K + Entrega Rápida - R$ 77,90
+    foto_rapido_2: 'https://go.perfectpay.com.br/PPU38CQ8EBA', // Checkout - 2 crianças + Foto + Entrega Rápida - R$ 81,90
+    '4k_foto_rapido_2': 'https://go.perfectpay.com.br/PPU38CQ8EAU', // Checkout - 2 crianças + 4K + Foto + Entrega Rápida - R$ 91,90
+    premium_2: 'https://go.perfectpay.com.br/PPU38CQ8EB2', // Checkout - 2 crianças + Combo Premium - R$ 77,80
 
     // 3+ crianças
-    base_3: 'https://go.perfectpay.com.br/PPU38CQ8EBB', // Checkout - 3+ crianças sem adicionais
-    '4k_3': 'https://go.perfectpay.com.br/PPU38CPKHKP', // Checkout - 3+ crianças + 4K
-    foto_3: 'https://go.perfectpay.com.br/PPU38CPKHKR', // Checkout - 3+ crianças + Foto
-    rapido_3: 'https://go.perfectpay.com.br/PPU38CPKHKT', // Checkout - 3+ crianças + Entrega Rápida
-    '4k_foto_3': 'https://go.perfectpay.com.br/PPU38CPKHL0', // Checkout - 3+ crianças + 4K + Foto
-    '4k_rapido_3': 'https://go.perfectpay.com.br/PPU38CPKHL2', // Checkout - 3+ crianças + 4K + Entrega Rápida
-    foto_rapido_3: 'https://go.perfectpay.com.br/PPU38CPKHL3', // Checkout - 3+ crianças + Foto + Entrega Rápida
-    '4k_foto_rapido_3': 'https://go.perfectpay.com.br/PPU38CPKHL4', // Checkout - 3+ crianças + 4K + Foto + Entrega Rápida
-    premium_3: 'https://go.perfectpay.com.br/PPU38CPKHL5', // Checkout - 3+ crianças + Combo Premium
+    base_3: 'https://go.perfectpay.com.br/PPU38CQ8EBB', // Checkout - 3+ crianças sem adicionais - R$ 67,90
+    '4k_3': 'https://go.perfectpay.com.br/PPU38CQ8EBC', // Checkout - 3+ crianças + 4K - R$ 77,90
+    foto_3: 'https://go.perfectpay.com.br/PPU38CQ8EBN', // Checkout - 3+ crianças + Foto - R$ 81,90
+    rapido_3: 'https://go.perfectpay.com.br/PPU38CQ8EBK', // Checkout - 3+ crianças + Entrega Rápida - R$ 77,90
+    '4k_foto_3': 'https://go.perfectpay.com.br/PPU38CQ8EBF', // Checkout - 3+ crianças + 4K + Foto - R$ 91,90
+    '4k_rapido_3': 'https://go.perfectpay.com.br/PPU38CQ8EBD', // Checkout - 3+ crianças + 4K + Entrega Rápida - R$ 87,90
+    foto_rapido_3: 'https://go.perfectpay.com.br/PPU38CQ8EBO', // Checkout - 3+ crianças + Foto + Entrega Rápida - R$ 91,90
+    '4k_foto_rapido_3': 'https://go.perfectpay.com.br/PPU38CQ8EBH', // Checkout - 3+ crianças + 4K + Foto + Entrega Rápida - R$ 101,90
+    premium_3: 'https://go.perfectpay.com.br/PPU38CQ8EBJ', // Checkout - 3+ crianças + Combo Premium - R$ 87,90
 
     // Produtos adicionais
     kit_atividades: 'https://go.perfectpay.com.br/PPU38CPO0I3',
