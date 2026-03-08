@@ -115,7 +115,7 @@ export default {
       const video = this.$refs.heroVideo
       if (video && video.paused) {
         video.muted = true
-        video.play().catch(() => {})
+        video.play().catch(() => { /* iOS autoplay fallback */ })
       }
     }
   },
@@ -143,7 +143,7 @@ export default {
             // Fallback: tenta no primeiro toque do usuário
             document.addEventListener('touchstart', () => {
               video.muted = true
-              video.play().catch(() => {})
+              video.play().catch(() => { /* iOS autoplay fallback */ })
             }, { once: true })
           })
         }
@@ -161,7 +161,7 @@ export default {
       this._visibilityHandler = () => {
         if (document.visibilityState === 'visible') {
           video.muted = true
-          video.play().catch(() => {})
+          video.play().catch(() => { /* iOS visibility resume */ })
         }
       }
       document.addEventListener('visibilitychange', this._visibilityHandler)
