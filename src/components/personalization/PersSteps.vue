@@ -139,7 +139,7 @@
 import { defineComponent, computed, watch, nextTick, markRaw, onMounted, toRaw } from 'vue'
 import type { QuizStep, QuizData } from '@/types/quiz'
 import { useQuiz } from '@/composables/useQuiz'
-import { trackEvent } from '@/utils/analytics'
+import { trackEvent, trackBeginCheckout } from '@/utils/analytics'
 import CheckoutService from '@/services/CheckoutService'
 import PersQuantity from './steps/PersQuantity.vue'
 import PersType from './steps/PersType.vue'
@@ -505,21 +505,17 @@ export default defineComponent({
 
             console.log('Dados para o checkout preparados com sucesso')
 
-            // Track checkout initiation
+            // Track checkout initiation (convenção GA4 e-commerce)
             console.log('Enviando evento de checkout...')
-            trackEvent({
-              event_name: 'begin_checkout',
-              personalization_step: 'Checkout',
-              from_step: '3',
-              step_data: JSON.stringify({
-                value: totalPrice,
-                items: [{
-                  item_name: 'Video Coelho',
-                  quantity: quizData.value.quantity,
-                  price: getBasePrice(),
-                  options: quizData.value.options
-                }]
-              })
+            trackBeginCheckout({
+              value: totalPrice,
+              currency: 'BRL',
+              items: [{
+                item_name: getProductName(),
+                quantity: quizData.value.quantity,
+                price: getBasePrice(),
+                item_category: 'Video Personalizado'
+              }]
             })
             console.log('Evento de checkout enviado com sucesso')
 

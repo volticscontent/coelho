@@ -214,38 +214,33 @@ declare global {
   }
 }
 
-// Eventos de E-commerce
-export const ecommerceEvents = {
-  viewItem: (product: { id: string | number; name: string; price: number }) => trackEvent({
-    event_name: 'view_item',
-    event_category: 'ecommerce',
-    event_action: 'view',
-    event_label: String(product.id),
-    component: 'ProductCard',
-    item_id: product.id,
-    item_name: product.name,
-    price: product.price
-  }),
-
-  addToCart: (product: { id: string | number; name: string; price: number }) => trackEvent({
-    event_name: 'add_to_cart',
-    event_category: 'ecommerce',
-    event_action: 'add',
-    event_label: String(product.id),
-    component: 'ProductCard',
-    item_id: product.id,
-    item_name: product.name,
-    price: product.price
-  }),
-
-  beginCheckout: (cartData: { total: number; items: Record<string, unknown>[] }) => trackEvent({
-    event_name: 'begin_checkout',
-    event_category: 'ecommerce',
-    event_action: 'click',
-    event_label: 'checkout',
-    cart_value: cartData.total,
-    items: cartData.items
-  })
+// Evento de E-commerce: begin_checkout (convenção GA4)
+export const trackBeginCheckout = (data: {
+  value: number;
+  currency?: string;
+  items: { item_name: string; quantity: number; price: number; item_category?: string }[];
+}) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    try {
+      window.gtag('event', 'begin_checkout', {
+        value: data.value,
+        currency: data.currency || 'BRL',
+        items: data.items.map((item, index) => ({
+          item_id: `video_coelho_${index}`,
+          item_name: item.item_name,
+          quantity: item.quantity,
+          price: item.price,
+          item_category: item.item_category || 'Video Personalizado'
+        }))
+      });
+    } catch (error) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('begin_checkout event in development:', data);
+      } else {
+        console.error('Error tracking begin_checkout:', error);
+      }
+    }
+  }
 };
 
 export const trackPageView = (url?: string) => {
