@@ -254,6 +254,7 @@ export default defineComponent({
       trackEvent({
         event_name: 'view_step',
         personalization_step: steps.value[newStep].label,
+        criancas: quizData.value.quantity,
         step_data: JSON.stringify({
           step_number: newStep + 1,
           form_data: quizData.value
@@ -290,6 +291,7 @@ export default defineComponent({
       trackEvent({
         event_name: 'view_step',
         personalization_step: steps.value[currentStepIndex.value].label,
+        criancas: quizData.value.quantity,
         step_data: JSON.stringify({
           step_number: currentStepIndex.value + 1,
           form_data: quizData.value
@@ -543,6 +545,7 @@ export default defineComponent({
             event_name: 'personalization_step',
             personalization_step: steps.value[currentStepIndex.value].label,
             from_step: String(currentStep),
+            criancas: quizData.value.quantity,
             step_data: JSON.stringify({
               step_number: nextStep,
               form_data: quizData.value
@@ -592,6 +595,7 @@ export default defineComponent({
           event_name: 'personalization_step',
           personalization_step: steps.value[currentStepIndex.value].label,
           from_step: String(currentStep),
+          criancas: quizData.value.quantity,
           step_data: JSON.stringify({
             step_number: previousStep,
             form_data: quizData.value

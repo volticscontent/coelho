@@ -18,6 +18,7 @@ export interface AnalyticsEvent {
   from_step?: string;
   to_step?: string;
   step_data?: unknown;
+  criancas?: number;
 }
 
 // Função principal para enviar eventos
