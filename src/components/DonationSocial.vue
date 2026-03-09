@@ -34,7 +34,7 @@ import whatsapp-button
 </template>
 
 <script>
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { trackEvent } from '@/utils/analytics'
 
 export default {
@@ -67,18 +67,6 @@ export default {
         })
       })
     }
-
-    onMounted(() => {
-      // Track view
-      trackEvent({
-        event_name: 'donation_view',
-        personalization_step: 'Donation',
-        from_step: 'home',
-        step_data: JSON.stringify({
-          section: 'donation_social'
-        })
-      })
-    })
 
     return {
       whatsappLink,

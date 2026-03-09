@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { trackEvent } from '@/utils/analytics'
 
@@ -104,18 +103,6 @@ export default {
         })
       })
     }
-
-    onMounted(() => {
-      // Track view
-      trackEvent({
-        event_name: 'social_proof_view',
-        personalization_step: 'Social',
-        from_step: 'home',
-        step_data: JSON.stringify({
-          section: 'sec_social'
-        })
-      })
-    })
 
     return {
       goToPersonalization,

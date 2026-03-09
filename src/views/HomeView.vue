@@ -20,7 +20,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { trackPageView } from '@/utils/analytics'
 import Header from '@/components/Header.vue'
 import Hero from '@/components/Hero.vue'
 import CarroBenefit from '@/components/CarroBenefit.vue'
@@ -55,9 +54,6 @@ export default defineComponent({
     SpecialistSocial,
     DonationSocial,
     Footer
-  },
-  mounted() {
-    trackPageView()
   }
 })
 </script>
