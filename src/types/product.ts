@@ -48,7 +48,7 @@ export const COELHO_VIDEO: BunnyVideo = {
   id: 'video_coelho',
   name: 'Vídeo do Coelho da Páscoa',
   description: 'O Coelho da pascoa vai esconder os ovos na pascoa! Será que seu filho vai conseguir encontrar?',
-  basePrice: 47.90,
+  basePrice: 37.90,
   image: '/video.png',
   thumbnail: '/video.png',
   maxChildren: 3,

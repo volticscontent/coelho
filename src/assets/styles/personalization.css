@@ -562,6 +562,29 @@
   flex-grow: 1;
 }
 
+.quantity-card .price-container {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  column-count: 2;
+}
+
+.quantity-card .drop-price {
+  font-size: 16px;
+  background: green;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 300;
+  font-family: 'Product Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: line-through;
+  gap: 4px;
+}
+
 .quantity-card .price {
   font-size: 32px;
   background: var(--gradient-primary);

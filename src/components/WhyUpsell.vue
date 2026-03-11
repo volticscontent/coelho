@@ -77,21 +77,21 @@
                 <span>1 criança</span>
                 <p class="price-detail">Vídeo personalizado para uma criança especial</p>
               </div>
-              <strong>R$ 39,99</strong>
+              <strong>R$ 37,90</strong>
             </div>
             <div class="price-option recommended">
               <div class="price-info">
                 <span>2 crianças</span>
                 <p class="price-detail">Surpreenda irmãos ou amigos com vídeos personalizados</p>
               </div>
-              <strong>R$ 49,99</strong>
+              <strong>R$ 47,90</strong>
             </div>
             <div class="price-option">
               <div class="price-info">
                 <span>3 crianças</span>
                 <p class="price-detail">Compartilhe a magia com mais crianças</p>
               </div>
-              <strong>R$ 59,99</strong>
+              <strong>R$ 57,90</strong>
             </div>
           </div>
           <button class="btn btn-cta btn-popup" @click="goToPersonalization">Personalizar Vídeo Agora</button>

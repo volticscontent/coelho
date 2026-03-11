@@ -29,8 +29,9 @@
         
         <div class="hero__content">
           <h1 class="hero__headline">
-            Espalhe
-            <br/>alegria infantil
+            <span class="hero_1">20%</span>
+            off
+            <br/>Desconto de Páscoa
           </h1>
           <div class="hero__subtext">
             O Coelho da Páscoa vai fazer<br/>
@@ -262,8 +263,18 @@ export default {
   margin: 0;
 }
 
+.hero_1 {
+  text-decoration: line-through;
+  margin-inline: 62px;
+  font-size: 40px;
+  line-height: 1.1;
+  color: var(--white);
+  font-family: "Fertigo Pro", Times, "Times New Roman", serif;
+  margin: 0;
+}
+
 .hero__subtext {
-  font-size: 15px;
+  font-size: 25px;
   line-height: 1.3;
   color: var(--white);
   opacity: 0.9;
@@ -469,7 +480,7 @@ export default {
   }
 
   .hero__headline {
-    font-size: 42px!important;
+    font-size: 38px!important;
     padding: 0px 7px;
   }
 

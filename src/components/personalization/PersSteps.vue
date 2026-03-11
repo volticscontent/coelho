@@ -652,13 +652,13 @@ export default defineComponent({
     const getBasePrice = () => {
       switch (quizData.value.quantity) {
         case 1:
-          return 47.90;
+          return 37.90;
         case 2:
-          return 57.90;
-        case 3:
-          return 67.90;
-        default:
           return 47.90;
+        case 3:
+          return 57.90;
+        default:
+          return 37.90;
       }
     }
 

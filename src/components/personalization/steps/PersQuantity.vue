@@ -24,9 +24,14 @@
         <span class="material-icons">{{ option.icon }}</span>
         <h4>{{ option.title }}</h4>
         <p class="description">{{ option.description }}</p>
-        <div class="price">
-          {{ formatPrice(calculatePrice(option.value)) }}
-          <small>/video</small>
+        <div class="price-container">
+           <div class="drop-price">
+            -20%
+          </div>
+          <div class="price">
+            {{ formatPrice(calculatePrice(option.value)) }}
+            <small>/video</small>
+          </div>
         </div>
       </div>
     </div>
@@ -102,21 +107,21 @@ export default defineComponent({
         icon: 'child_care',
         title: '1 Criança',
         description: 'Vídeo personalizado para uma criança',
-        price: 47.90
+        price: 37.90
       },
       {
         value: 2,
         icon: 'family_restroom',
         title: '2 Crianças',
         description: 'Vídeo para duas crianças',
-        price: 57.90
+        price: 47.90
       },
       {
         value: 3,
         icon: 'groups',
         title: '3 Crianças',
         description: 'Vídeo para três crianças',
-        price: 67.90
+        price: 57.90
       }
     ]
 
@@ -136,13 +141,13 @@ export default defineComponent({
     const calculatePrice = (quantity: number): number => {
       switch (quantity) {
         case 1:
-          return 47.90;
+          return 37.90;
         case 2:
-          return 57.90;
-        case 3:
-          return 67.90;
-        default:
           return 47.90;
+        case 3:
+          return 57.90;
+        default:
+          return 37.90;
       }
     }
 

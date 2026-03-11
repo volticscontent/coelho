@@ -269,7 +269,7 @@ export default {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  opacity: 0;
+  opacity: 5;
   visibility: hidden;
   transition: all 0.3s ease;
   z-index: 998;
